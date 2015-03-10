@@ -28,8 +28,8 @@
     <field name="model">account.statement.label</field>
     <field name="arch" type="xml">
         <form string="Statement Label">
+            <field name="partner_id" required="1"/>
             <field name="label"/>
-            <field name="partner_id" />
             <field name="company_id" groups="base.group_multi_company"/>
         </form>
     </field>
@@ -40,8 +40,10 @@
     <field name="model">account.statement.label</field>
     <field name="arch" type="xml">
         <tree string="Statement Labels" editable="bottom">
+            <field name="partner_id"
+                invisible="not context.get('statement_label_main_view')"
+                required="context.get('statement_label_main_view')"/>
             <field name="label"/>
-            <field name="partner_id" invisible="not context.get('statement_label_main_view')"/>
             <field name="company_id" groups="base.group_multi_company"/>
         </tree>
     </field>

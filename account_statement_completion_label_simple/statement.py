@@ -71,7 +71,7 @@ class AccountStatementLabel(models.Model):
     _description = "Account Statement Label"
 
     partner_id = fields.Many2one(
-        'res.partner', string='Partner', ondelete='cascade', required=True,
+        'res.partner', string='Partner', ondelete='cascade',
         domain=[('parent_id', '=', False)])
     label = fields.Char('Bank Statement Label', required=True)
     company_id = fields.Many2one(
