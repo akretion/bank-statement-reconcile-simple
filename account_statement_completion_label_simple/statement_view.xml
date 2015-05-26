@@ -28,9 +28,11 @@
     <field name="model">account.statement.label</field>
     <field name="arch" type="xml">
         <form string="Statement Label">
-            <field name="partner_id" required="1"/>
-            <field name="label"/>
-            <field name="company_id" groups="base.group_multi_company"/>
+            <group name="main">
+                <field name="partner_id" required="1"/>
+                <field name="label"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </group>
         </form>
     </field>
 </record>

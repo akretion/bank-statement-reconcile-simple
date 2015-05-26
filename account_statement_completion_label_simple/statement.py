@@ -50,7 +50,7 @@ class AccountBankStatementImport(models.TransientModel):
             """
             SELECT partner_id, label
             FROM account_statement_label
-            WHERE company_id = %s
+            WHERE company_id = %s OR company_id IS null
             """, (self.env.user.company_id.id,))
         dataset = [
             (r['label'].upper(), r['partner_id'])
