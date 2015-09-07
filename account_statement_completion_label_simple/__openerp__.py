@@ -41,6 +41,5 @@ This module has been written by Alexis de Lattre from Akretion <alexis.delattre@
         'security/ir.model.access.csv',
         'security/ir_rule.xml',
     ],
-    'demo': [],
     'installable': True,
 }

@@ -42,10 +42,10 @@ class AccountBankStatementImport(models.TransientModel):
     _inherit = "account.bank.statement.import"
 
     @api.model
-    def _complete_stmts_vals(self, stmts_vals, journal_id, account_number):
+    def _complete_statement(self, stmts_vals, journal_id, account_number):
         '''Match the partner from the account.statement.label'''
         stmts_vals = super(AccountBankStatementImport, self).\
-            _complete_stmts_vals(stmts_vals, journal_id, account_number)
+            _complete_statement(stmts_vals, journal_id, account_number)
         self._cr.execute(
             """
             SELECT partner_id, label
@@ -55,13 +55,12 @@ class AccountBankStatementImport(models.TransientModel):
         dataset = [
             (r['label'].upper(), r['partner_id'])
             for r in self._cr.dictfetchall()]
-        for st_vals in stmts_vals:
-            for line_vals in st_vals['transactions']:
-                if not line_vals['partner_id']:
-                    for stlabel in dataset:
-                        if stlabel[0] in line_vals['name'].upper():
-                            line_vals['partner_id'] = stlabel[1]
-                            break
+        for line_vals in stmts_vals['transactions']:
+            if not line_vals['partner_id']:
+                for stlabel in dataset:
+                    if stlabel[0] in line_vals['name'].upper():
+                        line_vals['partner_id'] = stlabel[1]
+                        break
         return stmts_vals
 
 
