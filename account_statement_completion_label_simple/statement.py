@@ -24,20 +24,6 @@
 from openerp import fields, models, api
 
 
-class AccountBankSatement(models.Model):
-    """We add a basic button and stuff to support the auto-completion
-    of the bank statement once line have been imported or manually fullfill.
-    """
-    _inherit = "account.bank.statement"
-
-    @api.multi
-    def go_to_completion_label(self):
-        action = self.env['ir.actions.act_window'].for_xml_id(
-            'account_statement_completion_label_simple',
-            'statement_label_action')
-        return action
-
-
 class AccountBankStatementImport(models.TransientModel):
     _inherit = "account.bank.statement.import"
 
@@ -79,7 +65,7 @@ class AccountStatementLabel(models.Model):
             'account.statement.label'))
 
     _sql_constraints = [(
-        'label_company_unique', 'unique (label, company_id)',
+        'label_company_unique', 'unique(label, company_id)',
         'This label already exists in this company !'
         )]
 
