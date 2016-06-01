@@ -2,7 +2,7 @@
 ###############################################################################
 #
 #   account_statement_completion_label_simple for Odoo
-#   Copyright (C) 2013-2015 Akretion (http://www.akretion.com)
+#   Copyright (C) 2013-2016 Akretion (http://www.akretion.com)
 #   @author Benoît GUILLOT <benoit.guillot@akretion.com>
 #   @author Alexis de LATTRE <alexis.delattre@akretion.com>
 #
@@ -22,6 +22,27 @@
 ###############################################################################
 
 from openerp import fields, models, api
+from unidecode import unidecode
+MEANINGFUL_PARTNER_NAME_MIN_SIZE = 3
+
+
+class AccountBankStatement(models.Model):
+    _inherit = 'account.bank.statement'
+
+    @api.multi
+    def update_partners(self):
+        self.ensure_one()
+        aslo = self.env['account.statement.label']
+        dataset = aslo.get_all_labels()
+        lines = self.env['account.bank.statement.line'].search([
+            ('statement_id', '=', self.id), ('partner_id', '=', False)])
+        for line in lines:
+            line_name = line.name.upper()
+            for stlabel in dataset:
+                if aslo.match(line_name, stlabel[0]):
+                    line.partner_id = stlabel[1]
+                    break
+        return True
 
 
 class AccountBankStatementImport(models.TransientModel):
@@ -32,19 +53,13 @@ class AccountBankStatementImport(models.TransientModel):
         '''Match the partner from the account.statement.label'''
         stmts_vals = super(AccountBankStatementImport, self).\
             _complete_statement(stmts_vals, journal_id, account_number)
-        self._cr.execute(
-            """
-            SELECT partner_id, label
-            FROM account_statement_label
-            WHERE company_id = %s OR company_id IS null
-            """, (self.env.user.company_id.id,))
-        dataset = [
-            (r['label'].upper(), r['partner_id'])
-            for r in self._cr.dictfetchall()]
+        aslo = self.env['account.statement.label']
+        dataset = aslo.get_all_labels()
         for line_vals in stmts_vals['transactions']:
             if not line_vals['partner_id']:
+                line_name = line_vals['name'].upper()
                 for stlabel in dataset:
-                    if stlabel[0] in line_vals['name'].upper():
+                    if aslo.match(line_name, stlabel[0]):
                         line_vals['partner_id'] = stlabel[1]
                         break
         return stmts_vals
@@ -68,6 +83,42 @@ class AccountStatementLabel(models.Model):
         'label_company_unique', 'unique(label, company_id)',
         'This label already exists in this company !'
         )]
+
+    @api.model
+    def match(self, bank_statement_line_name, label):
+        if (
+                ' ' + label + ' ' in bank_statement_line_name or
+                bank_statement_line_name.startswith(label + ' ') or
+                bank_statement_line_name.endswith(' ' + label) or
+                label == bank_statement_line_name):
+            return True
+        else:
+            return False
+
+    @api.model
+    def get_all_labels(self):
+        self._cr.execute(
+            """
+            SELECT partner_id, label
+            FROM account_statement_label
+            WHERE company_id = %s OR company_id IS null
+            """, (self.env.user.company_id.id,))
+        dataset = [
+            (r['label'].strip().upper(), r['partner_id'])
+            for r in self._cr.dictfetchall()]
+        self._cr.execute(
+            """
+            SELECT id, name FROM res_partner WHERE
+            active IS true AND parent_id IS null
+            AND (company_id = %s OR company_id IS null)
+            """, (self.env.user.company_id.id,))
+        for r in self._cr.dictfetchall():
+            partner_name = unidecode(r['name'].strip().upper())
+            if len(partner_name) >= MEANINGFUL_PARTNER_NAME_MIN_SIZE:
+                dataset.append((partner_name, r['id']))
+        # from pprint import pprint
+        # pprint(dataset)
+        return dataset
 
 
 class ResPartner(models.Model):
