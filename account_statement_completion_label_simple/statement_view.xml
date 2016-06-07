@@ -17,7 +17,7 @@
         <button name="button_cancel" position="before">
             <button name="update_partners" string="Update Partners"
                 type="object" states="draft"
-                help="Use bank statement labels to set the partner on lines that currently don't have a partner" />
+                help="Use bank statement labels and partner names to set the partner on lines that don't have a partner and that haven't been reconciled yet" />
         </button>
     </field>
 </record>

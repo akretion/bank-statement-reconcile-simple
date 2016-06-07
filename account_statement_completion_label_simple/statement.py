@@ -35,7 +35,10 @@ class AccountBankStatement(models.Model):
         aslo = self.env['account.statement.label']
         dataset = aslo.get_all_labels()
         lines = self.env['account.bank.statement.line'].search([
-            ('statement_id', '=', self.id), ('partner_id', '=', False)])
+            ('statement_id', '=', self.id),
+            ('partner_id', '=', False),
+            ('journal_entry_id', '=', False),
+            ])
         for line in lines:
             line_name = line.name.upper()
             for stlabel in dataset:
