@@ -30,24 +30,49 @@ class AccountBankStatement(models.Model):
     _inherit = 'account.bank.statement'
 
     @api.multi
+    def create_line_entries_from_account(self):
+        self.ensure_one()
+        st_lines = self.env['account.bank.statement.line'].search([
+            ('statement_id', '=', self.id),
+            ('account_id', '!=', False),
+            ('journal_entry_id', '=', False),
+            ])
+        for st_line in st_lines:
+            vals = {
+                'debit': st_line.amount < 0 and -st_line.amount or 0.0,
+                'credit': st_line.amount > 0 and st_line.amount or 0.0,
+                'account_id': st_line.account_id.id,
+                'name': st_line.name
+            }
+            # seems incompatible with new api.
+            self.pool['account.bank.statement.line'].process_reconciliation(
+                self.env.cr, self.env.uid, st_line.id, [vals],
+                self.env.context)
+        if self.all_lines_reconciled and self.state == 'draft':
+            self.button_confirm_bank()
+
+    @api.multi
     def update_statement_lines(self):
         self.ensure_one()
         aslo = self.env['account.statement.label']
-        dataset = aslo.get_all_labels()
-        lines = self.env['account.bank.statement.line'].search([
-            ('statement_id', '=', self.id),
-            ('partner_id', '=', False),
-            ('account_id', '=', False),
-            ('journal_entry_id', '=', False),
-            ])
-        for line in lines:
-            line_name = line.name.upper()
-            for stlabel in dataset:
-                if aslo.match(line_name, stlabel[0]):
-                    line.partner_id = stlabel[1]
-                    if stlabel[2]:
-                        line.account_id = stlabel[2]
-                    break
+        dataset = aslo.get_all_labels(self.journal_id)
+        if dataset:
+            lines = self.env['account.bank.statement.line'].search([
+                ('statement_id', '=', self.id),
+                ('partner_id', '=', False),
+                ('account_id', '=', False),
+                ('journal_entry_id', '=', False),
+                ])
+            for line in lines:
+                line_name = line.name.upper()
+                for stlabel in dataset:
+                    if aslo.match(line_name, stlabel[0]):
+                        line.partner_id = stlabel[1]
+                        if stlabel[2]:
+                            line.account_id = stlabel[2]
+                        break
+        if self.journal_id.automate_entry:
+            self.create_entries_from_lines()
         return True
 
 
@@ -60,16 +85,18 @@ class AccountBankStatementImport(models.TransientModel):
         stmts_vals = super(AccountBankStatementImport, self).\
             _complete_statement(stmts_vals, journal_id, account_number)
         aslo = self.env['account.statement.label']
-        dataset = aslo.get_all_labels()
-        for line_vals in stmts_vals['transactions']:
-            if not line_vals['partner_id']:
-                line_name = line_vals['name'].upper()
-                for stlabel in dataset:
-                    if aslo.match(line_name, stlabel[0]):
-                        line_vals['partner_id'] = stlabel[1]
-                        if stlabel[2]:
-                            line_vals['account_id'] = stlabel[2]
-                        break
+        journal = self.env['account.journal'].browse(journal_id)
+        dataset = aslo.get_all_labels(journal)
+        if dataset:
+            for line_vals in stmts_vals['transactions']:
+                if not line_vals['partner_id']:
+                    line_name = line_vals['name'].upper()
+                    for stlabel in dataset:
+                        if aslo.match(line_name, stlabel[0]):
+                            line_vals['partner_id'] = stlabel[1]
+                            if stlabel[2]:
+                                line_vals['account_id'] = stlabel[2]
+                            break
         return stmts_vals
 
 
@@ -108,17 +135,19 @@ class AccountStatementLabel(models.Model):
             return False
 
     @api.model
-    def get_all_labels(self):
-        self._cr.execute(
-            """
-            SELECT partner_id, label, account_id
-            FROM account_statement_label
-            WHERE company_id = %s OR company_id IS null
-            """, (self.env.user.company_id.id,))
-        dataset = [
-            (r['label'].strip().upper(), r['partner_id'], r['account_id'])
-            for r in self._cr.dictfetchall()]
-        if self.env.user.company_id.auto_complete_from_partner_name:
+    def get_all_labels(self, journal):
+        dataset = []
+        if journal.statement_label_autocompletion:
+            self._cr.execute(
+                """
+                SELECT partner_id, label, account_id
+                FROM account_statement_label
+                WHERE company_id = %s OR company_id IS null
+                """, (self.env.user.company_id.id,))
+            dataset.extend([
+                (r['label'].strip().upper(), r['partner_id'], r['account_id'])
+                for r in self._cr.dictfetchall()])
+        if journal.partner_autocompletion:
             self._cr.execute(
                 """
                 SELECT id, name FROM res_partner WHERE
