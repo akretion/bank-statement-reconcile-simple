@@ -72,7 +72,7 @@ class AccountBankStatement(models.Model):
                             line.account_id = stlabel[2]
                         break
         if self.journal_id.automate_entry:
-            self.create_entries_from_lines()
+            self.create_line_entries_from_account()
         return True
 
 
