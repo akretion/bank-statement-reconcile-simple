@@ -13,9 +13,9 @@
     <field name="model">res.partner</field>
     <field name="inherit_id" ref="account.view_partner_property_form"/>
     <field name="arch" type="xml">
-        <field name="bank_ids" position="after">
-            <field name="bank_statement_label_ids" colspan="4" groups="account.group_account_user"/>
-        </field>
+        <page name="accounting" position="inside">
+            <field name="bank_statement_label_ids" colspan="4" groups="account.group_account_user" nolabel="1"/>
+        </page>
     </field>
 </record>
 

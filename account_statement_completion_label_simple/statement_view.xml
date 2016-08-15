@@ -77,12 +77,11 @@
     <field name="context">{'statement_label_main_view': True}</field>
 </record>
 
-<!-- I don't put it in 'Configuration' menu, because this menu is
-only accessible by the Accounting Manager ; a regular accountant
-should be able to create/modify Bank Statement Labels -->
+<!-- Bank statement menu is gone, but we still don't want to put this menu
+     into configurations because accountant must be able to edit it. -->
 <menuitem id="statement_label_menu" action="statement_label_action"
-    parent="account.menu_finance_bank_and_cash"
-    sequence="9"/>
+    parent="account.menu_finance_entries"
+    sequence="100"/>
 
 
 </data>

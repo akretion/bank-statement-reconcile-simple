@@ -29,25 +29,14 @@ MEANINGFUL_PARTNER_NAME_MIN_SIZE = 3
 class AccountBankStatement(models.Model):
     _inherit = 'account.bank.statement'
 
-    @api.multi
+    @api.one
     def create_line_entries_from_account(self):
-        self.ensure_one()
         st_lines = self.env['account.bank.statement.line'].search([
             ('statement_id', '=', self.id),
             ('account_id', '!=', False),
-            ('journal_entry_id', '=', False),
+            ('journal_entry_ids', '=', False),
             ])
-        for st_line in st_lines:
-            vals = {
-                'debit': st_line.amount < 0 and -st_line.amount or 0.0,
-                'credit': st_line.amount > 0 and st_line.amount or 0.0,
-                'account_id': st_line.account_id.id,
-                'name': st_line.name
-            }
-            # seems incompatible with new api.
-            self.pool['account.bank.statement.line'].process_reconciliation(
-                self.env.cr, self.env.uid, st_line.id, [vals],
-                self.env.context)
+        st_lines.fast_counterpart_creation()
         if self.all_lines_reconciled and self.state == 'draft':
             self.button_confirm_bank()
 
@@ -61,7 +50,7 @@ class AccountBankStatement(models.Model):
                 ('statement_id', '=', self.id),
                 ('partner_id', '=', False),
                 ('account_id', '=', False),
-                ('journal_entry_id', '=', False),
+                ('journal_entry_ids', '=', False),
                 ])
             for line in lines:
                 line_name = line.name.upper()
