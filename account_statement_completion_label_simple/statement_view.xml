@@ -15,10 +15,13 @@
     <field name="inherit_id" ref="account.view_bank_statement_form"/>
     <field name="arch" type="xml">
         <button name="button_cancel" position="before">
-            <button name="update_partners" string="Update Partners"
+            <button name="update_statement_lines" string="Update Statement Lines"
                 type="object" states="draft"
                 help="Use bank statement labels and partner names to set the partner on lines that don't have a partner and that haven't been reconciled yet" />
         </button>
+        <xpath expr="//field[@name='amount']" position="after">
+            <field name="account_id"/>
+        </xpath>
     </field>
 </record>
 
@@ -31,6 +34,7 @@
                 <field name="partner_id" required="1"/>
                 <field name="label"/>
                 <field name="company_id" groups="base.group_multi_company"/>
+                <field name="account_id"/>
             </group>
         </form>
     </field>
@@ -46,6 +50,7 @@
                 required="context.get('statement_label_main_view')"/>
             <field name="label"/>
             <field name="company_id" groups="base.group_multi_company"/>
+            <field name="account_id"/>
         </tree>
     </field>
 </record>
