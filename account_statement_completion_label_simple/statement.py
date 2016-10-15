@@ -69,23 +69,23 @@ class AccountBankStatementImport(models.TransientModel):
     _inherit = "account.bank.statement.import"
 
     @api.model
-    def _complete_statement(self, stmts_vals, journal_id, account_number):
+    def _complete_stmts_vals(self, stmts_vals, journal, account_number):
         '''Match the partner from the account.statement.label'''
         stmts_vals = super(AccountBankStatementImport, self).\
-            _complete_statement(stmts_vals, journal_id, account_number)
+            _complete_stmts_vals(stmts_vals, journal, account_number)
         aslo = self.env['account.statement.label']
-        journal = self.env['account.journal'].browse(journal_id)
         dataset = aslo.get_all_labels(journal)
         if dataset:
-            for line_vals in stmts_vals['transactions']:
-                if not line_vals['partner_id']:
-                    line_name = line_vals['name'].upper()
-                    for stlabel in dataset:
-                        if aslo.match(line_name, stlabel[0]):
-                            line_vals['partner_id'] = stlabel[1]
-                            if stlabel[2]:
-                                line_vals['account_id'] = stlabel[2]
-                            break
+            for st_vals in stmts_vals:
+                for line_vals in st_vals['transactions']:
+                    if not line_vals['partner_id']:
+                        line_name = line_vals['name'].upper()
+                        for stlabel in dataset:
+                            if aslo.match(line_name, stlabel[0]):
+                                line_vals['partner_id'] = stlabel[1]
+                                if stlabel[2]:
+                                    line_vals['account_id'] = stlabel[2]
+                                break
         return stmts_vals
 
 
