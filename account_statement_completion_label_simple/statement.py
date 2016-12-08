@@ -1,27 +1,10 @@
 # -*- coding: utf-8 -*-
-###############################################################################
-#
-#   account_statement_completion_label_simple for Odoo
-#   Copyright (C) 2013-2016 Akretion (http://www.akretion.com)
-#   @author Benoît GUILLOT <benoit.guillot@akretion.com>
-#   @author Alexis de LATTRE <alexis.delattre@akretion.com>
-#
-#   This program is free software: you can redistribute it and/or modify
-#   it under the terms of the GNU Affero General Public License as
-#   published by the Free Software Foundation, either version 3 of the
-#   License, or (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU Affero General Public License for more details.
-#
-#   You should have received a copy of the GNU Affero General Public License
-#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-###############################################################################
+# © 2013-2016 Akretion (http://www.akretion.com)
+# @author Benoît GUILLOT <benoit.guillot@akretion.com>
+# @author Alexis de LATTRE <alexis.delattre@akretion.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import fields, models, api
+from odoo import fields, models, api
 from unidecode import unidecode
 MEANINGFUL_PARTNER_NAME_MIN_SIZE = 3
 
@@ -29,16 +12,17 @@ MEANINGFUL_PARTNER_NAME_MIN_SIZE = 3
 class AccountBankStatement(models.Model):
     _inherit = 'account.bank.statement'
 
-    @api.one
+    @api.multi
     def create_line_entries_from_account(self):
-        st_lines = self.env['account.bank.statement.line'].search([
-            ('statement_id', '=', self.id),
-            ('account_id', '!=', False),
-            ('journal_entry_ids', '=', False),
-            ])
-        st_lines.fast_counterpart_creation()
-        if self.all_lines_reconciled and self.state == 'draft':
-            self.button_confirm_bank()
+        for stmt in self:
+            st_lines = self.env['account.bank.statement.line'].search([
+                ('statement_id', '=', stmt.id),
+                ('account_id', '!=', False),
+                ('journal_entry_ids', '=', False),
+                ])
+            st_lines.fast_counterpart_creation()
+            if stmt.all_lines_reconciled and stmt.state == 'draft':
+                stmt.button_confirm_bank()
 
     @api.multi
     def update_statement_lines(self):
@@ -116,7 +100,9 @@ class AccountStatementLabel(models.Model):
     def match(self, bank_statement_line_name, label):
         if (
                 ' ' + label + ' ' in bank_statement_line_name or
+                ' ' + label + ':' in bank_statement_line_name or
                 bank_statement_line_name.startswith(label + ' ') or
+                bank_statement_line_name.startswith(label + ':') or
                 bank_statement_line_name.endswith(' ' + label) or
                 label == bank_statement_line_name):
             return True
