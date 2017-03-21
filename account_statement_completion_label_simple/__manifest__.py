@@ -20,8 +20,8 @@ This module has been written by Alexis de Lattre from Akretion <alexis.delattre@
     'depends': ['account_bank_statement_import'],
     'external_dependencies': {'python': ['unidecode']},
     'data': [
-        'partner_view.xml',
         'statement_view.xml',
+        'partner_view.xml',
         'security/ir.model.access.csv',
         'security/ir_rule.xml',
         'journal_view.xml',

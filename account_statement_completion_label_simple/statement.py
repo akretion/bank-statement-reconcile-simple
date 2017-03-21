@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-# © 2013-2016 Akretion (http://www.akretion.com)
+# © 2013-2017 Akretion (http://www.akretion.com)
 # @author Benoît GUILLOT <benoit.guillot@akretion.com>
 # @author Alexis de LATTRE <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models, api
+from odoo import fields, models, api, _
+from odoo.exceptions import ValidationError
 from unidecode import unidecode
 MEANINGFUL_PARTNER_NAME_MIN_SIZE = 3
 
@@ -98,13 +99,7 @@ class AccountStatementLabel(models.Model):
 
     @api.model
     def match(self, bank_statement_line_name, label):
-        if (
-                ' ' + label + ' ' in bank_statement_line_name or
-                ' ' + label + ':' in bank_statement_line_name or
-                bank_statement_line_name.startswith(label + ' ') or
-                bank_statement_line_name.startswith(label + ':') or
-                bank_statement_line_name.endswith(' ' + label) or
-                label == bank_statement_line_name):
+        if label in bank_statement_line_name:
             return True
         else:
             return False
@@ -137,6 +132,14 @@ class AccountStatementLabel(models.Model):
         # pprint(dataset)
         return dataset
 
+    @api.constrains('partner_id', 'account_id')
+    def label_check(self):
+        for label in self:
+            if not label.partner_id and not label.account_id:
+                raise ValidationError(_(
+                    "The bank statement label '%s' should have either "
+                    "a partner or an account.") % label.label)
+
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
@@ -144,3 +147,15 @@ class ResPartner(models.Model):
     bank_statement_label_ids = fields.One2many(
         'account.statement.label', 'partner_id',
         string='Bank Statement Labels')
+    bank_statement_label_count = fields.Integer(
+        compute='_compute_bank_statement_label_count',
+        string='Number of Bank Statement Labels', readonly=True)
+
+    def _compute_bank_statement_label_count(self):
+        label_data = self.env['account.statement.label'].read_group(
+            [('partner_id', 'in', self.ids)], ['partner_id'], ['partner_id'])
+        mapped_data = dict([
+            (label['partner_id'][0], label['partner_id_count'])
+            for label in label_data])
+        for partner in self:
+            partner.bank_statement_label_count = mapped_data.get(partner.id, 0)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  © 2015-2016 Akretion (http://www.akretion.com)
+  © 2015-2017 Akretion (http://www.akretion.com)
   @author Alexis de Lattre <alexis.delattre@akretion.com>
   License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
@@ -12,9 +12,15 @@
     <field name="model">res.partner</field>
     <field name="inherit_id" ref="account.view_partner_property_form"/>
     <field name="arch" type="xml">
-        <page name="accounting" position="inside">
-            <field name="bank_statement_label_ids" colspan="4" groups="account.group_account_user" nolabel="1"/>
-        </page>
+        <group name="accounting_entries" position="inside">
+            <div name="bank_statement_labels">
+                <button type="action" class="btn-link"
+                    name="%(statement_label_action)d"
+                    context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}">
+                    <field name="bank_statement_label_count" string="Bank Statement Labels" widget="statinfo"/>
+                </button>
+            </div>
+        </group>
     </field>
 </record>
 
