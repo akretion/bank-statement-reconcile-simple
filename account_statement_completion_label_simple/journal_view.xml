@@ -14,9 +14,9 @@
     <field name="inherit_id" ref="account.view_account_journal_form"/>
     <field name="arch" type="xml">
         <field name="sequence_id" position="after">
-            <field name="automate_entry" groups="account.group_account_manager"/>
-            <field name="statement_label_autocompletion" groups="account.group_account_manager"/>
-            <field name="partner_autocompletion" groups="account.group_account_manager"/>
+            <field name="automate_entry" attrs="{'invisible': [('type', '!=', 'bank')]}"/>
+            <field name="statement_label_autocompletion" attrs="{'invisible': [('type', '!=', 'bank')]}"/>
+            <field name="partner_autocompletion" attrs="{'invisible': [('type', '!=', 'bank')]}"/>
         </field>
     </field>
 </record>
