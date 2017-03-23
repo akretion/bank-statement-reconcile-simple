@@ -21,7 +21,8 @@
 #
 ###############################################################################
 
-from openerp import fields, models, api
+from openerp import fields, models, api, _
+from openerp.exceptions import ValidationError
 from unidecode import unidecode
 MEANINGFUL_PARTNER_NAME_MIN_SIZE = 3
 
@@ -125,11 +126,7 @@ class AccountStatementLabel(models.Model):
 
     @api.model
     def match(self, bank_statement_line_name, label):
-        if (
-                ' ' + label + ' ' in bank_statement_line_name or
-                bank_statement_line_name.startswith(label + ' ') or
-                bank_statement_line_name.endswith(' ' + label) or
-                label == bank_statement_line_name):
+        if label in bank_statement_line_name:
             return True
         else:
             return False
@@ -161,6 +158,14 @@ class AccountStatementLabel(models.Model):
         # from pprint import pprint
         # pprint(dataset)
         return dataset
+
+    @api.constrains('partner_id', 'account_id')
+    def label_check(self):
+        for label in self:
+            if not label.partner_id and not label.account_id:
+                raise ValidationError(_(
+                    "The bank statement label '%s' should have either "
+                    "a partner or an account.") % label.label)
 
 
 class ResPartner(models.Model):

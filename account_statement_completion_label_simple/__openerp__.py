@@ -2,7 +2,7 @@
 ###############################################################################
 #
 #   account_statement_completion_label_simple for Odoo
-#   Copyright (C) 2015-2016 Akretion (http://www.akretion.com)
+#   Copyright (C) 2015-2017 Akretion (http://www.akretion.com)
 #   @author Alexis de Lattre <alexis.delattre@akretion.com>
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -22,7 +22,7 @@
 
 {
     'name': 'Bank Statement Completion from Label (simple)',
-    'version': '0.2',
+    'version': '8.0.2.0.1',
     'category': 'Accounting & Finance',
     'license': 'AGPL-3',
     'description': """
@@ -37,8 +37,8 @@ This module has been written by Alexis de Lattre from Akretion <alexis.delattre@
     'depends': ['account_bank_statement_import'],
     'external_dependencies': {'python': ['unidecode']},
     'data': [
-        'partner_view.xml',
         'statement_view.xml',
+        'partner_view.xml',
         'security/ir.model.access.csv',
         'security/ir_rule.xml',
         'journal_view.xml',
