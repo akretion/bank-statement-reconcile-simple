@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  © 2013-2016 Akretion (http://www.akretion.com)
+  © 2013-2018 Akretion (http://www.akretion.com)
   @author Benoît GUILLOT <benoit.guillot@akretion.com>
   @author Alexis de Lattre <alexis.delattre@akretion.com>
   License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -18,9 +18,22 @@
                 type="object" states="open"
                 help="Use bank statement labels and partner names to set the partner on lines that don't have a partner and that haven't been reconciled yet" />
         </button>
-        <xpath expr="//field[@name='amount']" position="after">
+        <xpath expr="//field[@name='line_ids']/tree/field[@name='amount']" position="after">
             <field name="account_id"/>
         </xpath>
+        <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="after">
+            <button name="%(account_statement_completion_label_simple.account_statement_label_create_action)d" type="action" string="Learn Label" icon="fa-save" attrs="{'invisible': [('partner_id', '!=', False)]}"/>
+        </xpath>
+    </field>
+</record>
+
+<record id="view_bank_statement_line_form" model="ir.ui.view">
+    <field name="model">account.bank.statement.line</field>
+    <field name="inherit_id" ref="account.view_bank_statement_line_form"/>
+    <field name="arch" type="xml">
+        <field name="amount" position="after">
+            <field name="account_id"/>
+        </field>
     </field>
 </record>
 

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2018 Akretion (Alexis de Lattre <alexis.delattre@akretion.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+
+<odoo>
+
+
+<record id="account_statement_label_create_form" model="ir.ui.view">
+    <field name="model">account.statement.label.create</field>
+    <field name="arch"  type="xml">
+        <form string="Create Bank Statement Label">
+            <group name="main">
+                <field name="statement_line_id" invisible="1"/>
+                <field name="current_label"/>
+                <field name="new_label"/>
+                <field name="partner_id"/>
+            </group>
+            <footer>
+                <button type="object" name="run" string="Create Label and Update"
+                    class="btn-primary"/>
+                <button special="cancel" string="Cancel" class="btn-default"/>
+            </footer>
+        </form>
+    </field>
+</record>
+
+<record id="account_statement_label_create_action" model="ir.actions.act_window">
+    <field name="name">Create Bank Statement Label</field>
+    <field name="res_model">account.statement.label.create</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+</record>
+
+
+</odoo>

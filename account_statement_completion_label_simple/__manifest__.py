@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# © 2015-2016 Akretion (http://www.akretion.com)
+# © 2015-2018 Akretion (http://www.akretion.com)
 # @author Alexis de Lattre <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -20,6 +20,7 @@ This module has been written by Alexis de Lattre from Akretion <alexis.delattre@
     'depends': ['account_bank_statement_import'],
     'external_dependencies': {'python': ['unidecode']},
     'data': [
+        'wizard/account_statement_label_create_view.xml',
         'statement_view.xml',
         'partner_view.xml',
         'security/ir.model.access.csv',
