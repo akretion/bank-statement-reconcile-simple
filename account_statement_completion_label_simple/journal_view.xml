@@ -14,10 +14,10 @@
     <field name="arch" type="xml">
         <xpath expr="//field[@name='bank_statements_source']/.." position="after">
             <group name="bank_autocompletion" string="Bank Statement Line Auto-Completion">
-                <field name="statement_label_autocompletion"/>
-                <field name="automate_entry" attrs="{'invisible': [('statement_label_autocompletion', '=', False)]}"/>
                 <field name="partner_autocompletion"/>
                 <field name="invoice_number_autocompletion"/>
+                <field name="statement_label_autocompletion"/>
+                <field name="automate_entry" attrs="{'invisible': [('statement_label_autocompletion', '=', False)]}"/>
             </group>
         </xpath>
     </field>
