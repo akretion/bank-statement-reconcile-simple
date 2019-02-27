@@ -26,7 +26,7 @@ class AccountStatementLabelCreate(models.TransientModel):
 
     statement_line_id = fields.Many2one(
         'account.bank.statement.line', string='Bank Statement Line',
-        readonly=True, required=True)
+        readonly=True)
     current_label = fields.Char(
         related='statement_line_id.name', readonly=True,
         string='Statement Line Label')
