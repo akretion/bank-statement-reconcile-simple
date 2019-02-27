@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# Copyright 2013-2017 Akretion (http://www.akretion.com)
+# Copyright 2013-2019 Akretion France (http://www.akretion.com)
 # @author Benoît GUILLOT <benoit.guillot@akretion.com>
 # @author Alexis de LATTRE <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -102,8 +101,7 @@ class AccountStatementLabel(models.Model):
     label = fields.Char('Bank Statement Label', required=True)
     company_id = fields.Many2one(
         'res.company', string='Company',
-        default=lambda self: self.env['res.company']._company_default_get(
-            'account.statement.label'))
+        default=lambda self: self.env['res.company']._company_default_get())
 
     _sql_constraints = [(
         'label_company_unique', 'unique(label, company_id)',

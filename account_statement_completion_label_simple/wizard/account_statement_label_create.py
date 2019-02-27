@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-# Copyright 2018 Akretion (Alexis de Lattre <alexis.delattre@akretion.com>)
+# Copyright 2018-2019 Akretion France (http://www.akretion.com/)
+# @author: Alexis de Lattre <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
@@ -26,7 +26,7 @@ class AccountStatementLabelCreate(models.TransientModel):
 
     statement_line_id = fields.Many2one(
         'account.bank.statement.line', string='Bank Statement Line',
-        readonly=True, required=True)
+        readonly=True)
     current_label = fields.Char(
         related='statement_line_id.name', readonly=True,
         string='Statement Line Label')

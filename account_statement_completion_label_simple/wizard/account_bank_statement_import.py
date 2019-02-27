@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# Copyright 2013-2017 Akretion France (http://www.akretion.com)
+# Copyright 2013-2019 Akretion France (http://www.akretion.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, models
@@ -18,7 +17,7 @@ class AccountBankStatementImport(models.TransientModel):
         if dataset:
             for st_vals in stmts_vals:
                 for line_vals in st_vals['transactions']:
-                    if not line_vals['partner_id']:
+                    if not line_vals.get('partner_id'):
                         line_name = line_vals['name'].upper()
                         for stlabel in dataset:
                             if abso.match(line_name, stlabel[0]):
