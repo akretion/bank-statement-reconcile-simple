@@ -5,7 +5,7 @@
 <record id="account_statement_label_rule" model="ir.rule">
     <field name="name">Statement Label Multi-company</field>
     <field name="model_id" ref="model_account_statement_label"/>
-    <field name="domain_force">['|', ('company_id','=',False), ('company_id','child_of',[user.company_id.id])]</field>
+    <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
 </record>
 
 </odoo>

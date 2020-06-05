@@ -11,8 +11,7 @@ class AccountStatementLabelCreate(models.TransientModel):
 
     @api.model
     def default_get(self, fields_list):
-        res = super(AccountStatementLabelCreate, self).default_get(
-            fields_list)
+        res = super().default_get(fields_list)
         assert self._context.get('active_model') ==\
             'account.bank.statement.line', 'Wrong active model'
         assert self._context.get('active_id'), 'missing active_id in context'
@@ -39,7 +38,7 @@ class AccountStatementLabelCreate(models.TransientModel):
         self.ensure_one()
         self.env['account.statement.label'].create({
             'partner_id': self.partner_id.id,
-            'label': self.new_label,
+            'label': self.new_label.strip(),
             'company_id': self.statement_line_id.company_id.id,
         })
         self.statement_line_id.statement_id.update_statement_lines()

@@ -72,13 +72,16 @@ class AccountBankStatement(models.Model):
                 if len(partner_name) >= MEANINGFUL_PARTNER_NAME_MIN_SIZE:
                     dataset.append((partner_name, partner['id'], False))
         if journal.invoice_number_autocompletion:
-            invoices = self.env['account.invoice'].search_read([
+            invoices = self.env['account.move'].search_read([
                 ('type', 'in', ('out_invoice', 'out_refund')),
-                ('number', '!=', False)],
-                ['commercial_partner_id', 'number'])
+                ('state', '=', 'posted'),
+                ('company_id', '=', self.env.user.company_id.id),
+                ('commercial_partner_id', '!=', False),
+                ('name', '!=', False)],
+                ['commercial_partner_id', 'name'])
             for invoice in invoices:
                 dataset.append((
-                    invoice['number'].upper(),
+                    invoice['name'].upper(),
                     invoice['commercial_partner_id'][0],
                     False))
         # from pprint import pprint
@@ -100,8 +103,7 @@ class AccountStatementLabel(models.Model):
              "statement line and won't propose the reconciliation")
     label = fields.Char('Bank Statement Label', required=True)
     company_id = fields.Many2one(
-        'res.company', string='Company',
-        default=lambda self: self.env['res.company']._company_default_get())
+        'res.company', string='Company', default=lambda self: self.env.company)
 
     _sql_constraints = [(
         'label_company_unique', 'unique(label, company_id)',

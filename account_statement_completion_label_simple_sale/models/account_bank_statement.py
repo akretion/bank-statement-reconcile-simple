@@ -10,9 +10,11 @@ class AccountBankStatement(models.Model):
 
     @api.model
     def get_all_labels(self, journal):
-        dataset = super(AccountBankStatement, self).get_all_labels(journal)
+        dataset = super().get_all_labels(journal)
         if journal.sale_order_number_autocompletion:
             orders = self.env['sale.order'].search_read([
+                ('company_id', '=', self.env.user.company_id.id),
+                ('commercial_partner_id', '!=', False),
                 ('state', '!=', 'cancel')],
                 ['commercial_partner_id', 'name'])
             for order in orders:

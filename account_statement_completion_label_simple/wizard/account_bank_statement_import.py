@@ -1,17 +1,15 @@
 # Copyright 2013-2019 Akretion France (http://www.akretion.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models
+from odoo import models
 
 
 class AccountBankStatementImport(models.TransientModel):
     _inherit = 'account.bank.statement.import'
 
-    @api.model
     def _complete_stmts_vals(self, stmts_vals, journal, account_number):
         '''Match the partner from the account.statement.label'''
-        stmts_vals = super(AccountBankStatementImport, self).\
-            _complete_stmts_vals(stmts_vals, journal, account_number)
+        stmts_vals = super()._complete_stmts_vals(stmts_vals, journal, account_number)
         abso = self.env['account.bank.statement']
         dataset = abso.get_all_labels(journal)
         if dataset:
@@ -27,13 +25,13 @@ class AccountBankStatementImport(models.TransientModel):
                                 break
         return stmts_vals
 
-    @api.model
     def _create_bank_statements(self, stmts_vals):
-        statement_ids, notifs = super(AccountBankStatementImport, self).\
-            _create_bank_statements(stmts_vals)
-        statement_obj = self.env['account.bank.statement']
-        statements = statement_obj.browse(statement_ids)
-        for statement in statements:
-            if statement.journal_id.automate_entry:
-                statement.create_line_entries_from_account()
-        return statement_ids, notifs
+        statement_line_ids, notifs = super()._create_bank_statements(stmts_vals)
+        abslo = self.env['account.bank.statement.line']
+        lines = abslo.browse(statement_line_ids)
+        for line in lines.filtered(
+                lambda x: x.account_id and
+                not x.journal_entry_ids and
+                x.statement_id.journal_id.automate_entry):
+            line.fast_counterpart_creation()
+        return statement_line_ids, notifs
