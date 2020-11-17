@@ -4,7 +4,7 @@
 
 {
     'name': 'Bank Statement Completion from Label (simple)',
-    'version': '13.0.1.0.0',
+    'version': '14.0.1.0.0',
     'category': 'Accounting',
     'license': 'AGPL-3',
     'description': """
@@ -16,15 +16,16 @@ This module has been written by Alexis de Lattre from Akretion <alexis.delattre@
     """,
     'author': 'Akretion',
     'website': 'http://www.akretion.com/',
-    'depends': ['account_bank_statement_import'],
+    'depends': ['account_statement_import'],
     'external_dependencies': {'python': ['unidecode']},
     'data': [
-        'wizard/account_statement_label_create_view.xml',
-        'statement_view.xml',
-        'partner_view.xml',
         'security/ir.model.access.csv',
         'security/ir_rule.xml',
-        'journal_view.xml',
+        'wizard/account_statement_label_create_view.xml',
+        'views/account_bank_statement.xml',
+        'views/account_statement_label.xml',
+        'views/partner.xml',
+        'views/account_journal.xml',
     ],
     'installable': True,
 }

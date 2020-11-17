@@ -14,3 +14,18 @@ class AccountJournal(models.Model):
         help="If enabled, the partner field of bank statement "
         "lines will be automatically set if it contains a sale "
         "order number.")
+
+    def get_all_labels(self):
+        dataset = super().get_all_labels()
+        if self.sale_order_number_autocompletion:
+            orders = self.env['sale.order'].search_read([
+                ('company_id', '=', self.env.company.id),
+                ('commercial_partner_id', '!=', False),
+                ('state', '!=', 'cancel')],
+                ['commercial_partner_id', 'name'])
+            for order in orders:
+                dataset.append((
+                    order['name'].upper(),
+                    order['commercial_partner_id'][0],
+                    False))
+        return dataset

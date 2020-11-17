@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_account_statement_label_user,Full access on account.statement.label to Accountant,model_account_statement_label,account.group_account_user,1,1,1,1
 access_account_statement_label_read,Read access on account.statement.label to Employees,model_account_statement_label,base.group_user,1,0,0,0
+access_account_statement_label_create_user,Full access on account.statement.label.create wizard,model_account_statement_label_create,account.group_account_user,1,1,1,1

@@ -18,7 +18,7 @@ class AccountStatementLabelCreate(models.TransientModel):
         line = self.env['account.bank.statement.line'].browse(
             self._context['active_id'])
         res.update({
-            'new_label': line.name,
+            'new_label': line.payment_ref,
             'statement_line_id': line.id,
         })
         return res
@@ -27,7 +27,7 @@ class AccountStatementLabelCreate(models.TransientModel):
         'account.bank.statement.line', string='Bank Statement Line',
         readonly=True)
     current_label = fields.Char(
-        related='statement_line_id.name', readonly=True,
+        related='statement_line_id.payment_ref', readonly=True,
         string='Statement Line Label')
     new_label = fields.Char(string="New Label", required=True)
     partner_id = fields.Many2one(

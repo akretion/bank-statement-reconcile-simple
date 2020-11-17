@@ -1,3 +1,2 @@
-from . import statement
-from . import journal
+from . import models
 from . import wizard
