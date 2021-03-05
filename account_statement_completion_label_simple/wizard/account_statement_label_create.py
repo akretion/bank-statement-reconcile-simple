@@ -33,11 +33,13 @@ class AccountStatementLabelCreate(models.TransientModel):
     partner_id = fields.Many2one(
         'res.partner', string='Partner', domain=[('parent_id', '=', False)],
         required=True)
+    account_id = fields.Many2one('account.account')
 
     def run(self):
         self.ensure_one()
         self.env['account.statement.label'].create({
             'partner_id': self.partner_id.id,
+            'account_id': self.account_id.id or False,
             'label': self.new_label.strip(),
             'company_id': self.statement_line_id.company_id.id,
         })
