@@ -40,7 +40,9 @@ class AccountJournal(models.Model):
         dataset = []
         if self.statement_label_autocompletion:
             labels = self.env['account.statement.label'].search_read(
-                [], ['partner_id', 'label', 'account_id'])
+                [("company_id", '=', self.company_id.id)],
+                ['partner_id', 'label', 'account_id']
+            )
             for label in labels:
                 dataset.append((
                     label['label'].strip().upper(),
@@ -48,7 +50,7 @@ class AccountJournal(models.Model):
                     label['account_id'] and label['account_id'][0] or False))
         if self.partner_autocompletion:
             partners = self.env['res.partner'].search_read(
-                [('parent_id', '=', False)], ['name'])
+                [('parent_id', '=', False), "|", ("company_id", "=", self.company_id.id), ("company_id", '=', False)], ['name'])
             for partner in partners:
                 partner_name = unidecode(partner['name'].strip().upper())
                 if len(partner_name) >= MEANINGFUL_PARTNER_NAME_MIN_SIZE:
