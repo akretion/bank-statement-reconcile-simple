@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Copyright 2013-2019 Akretion France (http://www.akretion.com)
+  Copyright 2013-2022 Akretion France (http://www.akretion.com)
   @author Benoît GUILLOT <benoit.guillot@akretion.com>
   @author Alexis de Lattre <alexis.delattre@akretion.com>
   License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -13,7 +13,7 @@
     <field name="name">account.statement.label.form</field>
     <field name="model">account.statement.label</field>
     <field name="arch" type="xml">
-        <form string="Statement Label">
+        <form>
             <group name="main">
                 <field name="label"/>
                 <field name="partner_id"/>
@@ -28,7 +28,7 @@
     <field name="name">account.statement.label.tree</field>
     <field name="model">account.statement.label</field>
     <field name="arch" type="xml">
-        <tree string="Statement Labels" editable="bottom">
+        <tree editable="bottom">
             <field name="label"/>
             <field name="partner_id"/>
             <!-- <field name="account_id"/> -->
@@ -41,7 +41,7 @@
     <field name="name">account.statement.label.search</field>
     <field name="model">account.statement.label</field>
     <field name="arch" type="xml">
-        <search string="Search Statement Labels" >
+        <search>
             <field name="label"/>
             <field name="partner_id"/>
             <!-- <field name="account_id"/>  -->
