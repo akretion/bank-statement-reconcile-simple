@@ -20,8 +20,9 @@ class AccountStatementImport(models.TransientModel):
                         for stlabel in dataset:
                             if abso.match(line_pref, stlabel[0]):
                                 lvals['partner_id'] = stlabel[1]
-                                if stlabel[2]:
-                                    lvals['account_id'] = stlabel[2]
+                                # TODO
+                                #if stlabel[2]:
+                                #    lvals['account_id'] = stlabel[2]
                                 break
         return stmts_vals
 

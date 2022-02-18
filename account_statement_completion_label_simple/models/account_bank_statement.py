@@ -33,8 +33,8 @@ class AccountBankStatement(models.Model):
                 for stlabel in dataset:
                     if self.match(line_pay_ref, stlabel[0]):
                         lvals = {'partner_id': stlabel[1]}
-                        if stlabel[2]:
-                            lvals['account_id'] = stlabel[2]
+                        #if stlabel[2]:
+                        #    lvals['account_id'] = stlabel[2]
                         line.write(lvals)
                         break
         # if self.journal_id.automate_entry:
