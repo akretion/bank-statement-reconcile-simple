@@ -13,7 +13,7 @@
     """,
     'author': 'Akretion',
     'website': 'http://www.akretion.com/',
-    'depends': ['account_statement_completion_label_simple'],
+    'depends': ['account_statement_completion_label_simple', "account_reconciliation_widget"],
     'data': [
         'wizard/account_statement_label_create_view.xml',
         'views/account_bank_statement.xml',

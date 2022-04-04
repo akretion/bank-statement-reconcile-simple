@@ -13,14 +13,18 @@ class AccountBankStatement(models.Model):
         return vals
 
     def button_post(self):
-        super().button_post()
-        account_st_lines = self.line_ids.filtered(lambda l: l.account_id)
-        for st_line in account_st_lines:
-            liquidity_lines, suspense_lines, other_lines = st_line._seek_for_lines()
-            (suspense_lines + other_lines).write({
-                'account_id': st_line.account_id.id,
-            })
-        account_st_lines._compute_is_reconciled()
+        res = super().button_post()
+        for line in self.line_ids:
+            if not line.account_id or line.is_reconciled:
+                continue
+            aml_dict = {
+                "name": line.payment_ref,
+                "debit": line.amount < 0.0 and -line.amount or 0.0,
+                "credit": line.amount > 0.0 and line.amount or 0.0,
+                "account_id": line.account_id.id,
+            }
+            line.process_reconciliation(new_aml_dicts=[aml_dict])
+        return res
 
 
 class AccountBankStatementLine(models.Model):

@@ -31,13 +31,13 @@ class AccountJournal(models.Model):
             order['commercial_partner_id'][0],
         )
 
-     def get_all_labels(self):
-         dataset = super().get_all_labels()
-         if self.sale_order_number_autocompletion:
+    def get_all_labels(self):
+        dataset = super().get_all_labels()
+        if self.sale_order_number_autocompletion:
             orders = self.env['sale.order'].search_read(
                 self._get_sale_order_domain(),
                 self._get_sale_order_read_fields()
             )
-             for order in orders:
+            for order in orders:
                 dataset.append(self._get_dataset_from_sale_order(order))
         return dataset
