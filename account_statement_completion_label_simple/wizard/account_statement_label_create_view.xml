@@ -17,7 +17,6 @@
                 <field name="current_label"/>
                 <field name="new_label"/>
                 <field name="partner_id" context="{'default_is_company': True}"/>
-                <field name="account_id"/>
             </group>
             <footer>
                 <button type="object" name="run" string="Create Label and Update"

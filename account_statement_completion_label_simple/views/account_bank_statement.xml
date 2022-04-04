@@ -25,9 +25,6 @@
         <xpath expr="//field[@name='line_ids']/tree/field[@name='payment_ref']" position="after">
             <button name="%(account_statement_completion_label_simple.account_statement_label_create_action)d" type="action" string="Learn Label" icon="fa-save" attrs="{'invisible': [('partner_id', '!=', False)]}"/>
         </xpath>
-        <xpath expr="//field[@name='line_ids']/tree/field[@name='partner_id']" position="after">
-            <field name="account_id" optional="hidden"/>
-        </xpath>
     </field>
 </record>
 

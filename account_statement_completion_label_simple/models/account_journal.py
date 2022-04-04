@@ -35,24 +35,30 @@ class AccountJournal(models.Model):
     #    help="Create account entries after bank statement completion "
     #         "if an account is filled on the statement line")
 
+    def _get_dataset_from_label(self, label):
+        return (
+            label['label'].strip().upper(),
+            label['partner_id'] and label['partner_id'][0] or False,
+        )
+
+    def _get_label_fields(self):
+        return ["partner_id", "label"]
+
     def get_all_labels(self):
         self.ensure_one()
         dataset = []
         if self.statement_label_autocompletion:
             labels = self.env['account.statement.label'].search_read(
-                [], ['partner_id', 'label', 'account_id'])
+                [], self._get_label_fields())
             for label in labels:
-                dataset.append((
-                    label['label'].strip().upper(),
-                    label['partner_id'] and label['partner_id'][0] or False,
-                    label['account_id'] and label['account_id'][0] or False))
+                dataset.append(self._get_dataset_from_label(label))
         if self.partner_autocompletion:
             partners = self.env['res.partner'].search_read(
                 [('parent_id', '=', False)], ['name'])
             for partner in partners:
                 partner_name = unidecode(partner['name'].strip().upper())
                 if len(partner_name) >= MEANINGFUL_PARTNER_NAME_MIN_SIZE:
-                    dataset.append((partner_name, partner['id'], False))
+                    dataset.append((partner_name, partner['id']))
         if self.invoice_number_autocompletion:
             invoices = self.env['account.move'].search_read([
                 ('move_type', 'in', ('out_invoice', 'out_refund')),
@@ -64,8 +70,7 @@ class AccountJournal(models.Model):
             for invoice in invoices:
                 dataset.append((
                     invoice['name'].upper(),
-                    invoice['commercial_partner_id'][0],
-                    False))
+                    invoice['commercial_partner_id'][0]))
         # from pprint import pprint
         # pprint(dataset)
         return dataset

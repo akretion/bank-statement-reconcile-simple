@@ -15,17 +15,29 @@ class AccountJournal(models.Model):
         "lines will be automatically set if it contains a sale "
         "order number.")
 
-    def get_all_labels(self):
-        dataset = super().get_all_labels()
-        if self.sale_order_number_autocompletion:
-            orders = self.env['sale.order'].search_read([
+    def _get_sale_order_domain(self):
+        return [
                 ('company_id', '=', self.env.company.id),
                 ('commercial_partner_id', '!=', False),
-                ('state', '!=', 'cancel')],
-                ['commercial_partner_id', 'name'])
-            for order in orders:
-                dataset.append((
-                    order['name'].upper(),
-                    order['commercial_partner_id'][0],
-                    False))
+                ('state', '!=', 'cancel'),
+        ]
+
+    def _get_sale_order_read_fields(self):
+        return ['commercial_partner_id', 'name']
+
+    def _get_dataset_from_sale_order(self, order):
+        return (
+            order['name'].upper(),
+            order['commercial_partner_id'][0],
+        )
+
+     def get_all_labels(self):
+         dataset = super().get_all_labels()
+         if self.sale_order_number_autocompletion:
+            orders = self.env['sale.order'].search_read(
+                self._get_sale_order_domain(),
+                self._get_sale_order_read_fields()
+            )
+             for order in orders:
+                dataset.append(self._get_dataset_from_sale_order(order))
         return dataset

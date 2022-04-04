@@ -7,6 +7,10 @@ from odoo import models
 class AccountStatementImport(models.TransientModel):
     _inherit = 'account.statement.import'
 
+    def _complete_vals_from_label(self, vals, stlabel):
+        vals["partner_id"] = stlabel[1]
+        return vals
+
     def _complete_stmts_vals(self, stmts_vals, journal, account_number):
         '''Match the partner from the account.statement.label'''
         stmts_vals = super()._complete_stmts_vals(stmts_vals, journal, account_number)
@@ -19,9 +23,8 @@ class AccountStatementImport(models.TransientModel):
                         line_pref = lvals['payment_ref'].upper()
                         for stlabel in dataset:
                             if abso.match(line_pref, stlabel[0]):
+                                self._complete_vals_from_label(lvals, stlabel)
                                 lvals['partner_id'] = stlabel[1]
-                                if stlabel[2]:
-                                    lvals['account_id'] = stlabel[2]
                                 break
         return stmts_vals
 

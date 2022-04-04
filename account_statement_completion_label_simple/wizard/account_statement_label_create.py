@@ -33,7 +33,6 @@ class AccountStatementLabelCreate(models.TransientModel):
     partner_id = fields.Many2one(
         'res.partner', string='Partner', domain=[('parent_id', '=', False)],
         required=True)
-    account_id = fields.Many2one('account.account')
 
     def run(self):
         self.ensure_one()

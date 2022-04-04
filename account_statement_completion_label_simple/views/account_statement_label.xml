@@ -17,7 +17,6 @@
             <group name="main">
                 <field name="label"/>
                 <field name="partner_id"/>
-                <field name="account_id"/>
                 <field name="company_id" groups="base.group_multi_company"/>
             </group>
         </form>
@@ -31,7 +30,6 @@
         <tree string="Statement Labels" editable="bottom">
             <field name="label"/>
             <field name="partner_id"/>
-            <field name="account_id"/>
             <field name="company_id" groups="base.group_multi_company"/>
         </tree>
     </field>
@@ -44,12 +42,9 @@
         <search string="Search Statement Labels" >
             <field name="label"/>
             <field name="partner_id"/>
-            <field name="account_id"/>
             <group string="Group By" name="groupby">
                 <filter name="partner_groupby" string="Partner"
                     context="{'group_by': 'partner_id'}"/>
-            <!--    <filter name="account_groupby" string="Account"
-                context="{'group_by': 'account_id'}"/>  -->
             </group>
         </search>
     </field>
