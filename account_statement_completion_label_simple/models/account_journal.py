@@ -57,7 +57,7 @@ class AccountJournal(models.Model):
             invoices = self.env['account.move'].search_read([
                 ('move_type', 'in', ('out_invoice', 'out_refund')),
                 ('state', '=', 'posted'),
-                ('company_id', '=', self.env.company.id),
+                ('company_id', '=', self.company_id.id),
                 ('commercial_partner_id', '!=', False),
                 ('name', '!=', False)],
                 ['commercial_partner_id', 'name'])
