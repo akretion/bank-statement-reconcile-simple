@@ -34,12 +34,18 @@ class AccountStatementLabelCreate(models.TransientModel):
         'res.partner', string='Partner', domain=[('parent_id', '=', False)],
         required=True)
 
-    def run(self):
+    def _get_label_vals(self):
         self.ensure_one()
-        self.env['account.statement.label'].create({
+        return {
             'partner_id': self.partner_id.id,
             'label': self.new_label.strip(),
             'company_id': self.statement_line_id.company_id.id,
-        })
+        }
+
+    def run(self):
+        self.ensure_one()
+        self.env['account.statement.label'].create(
+            self._get_label_vals()
+        )
         self.statement_line_id.statement_id.update_statement_lines()
         return True
