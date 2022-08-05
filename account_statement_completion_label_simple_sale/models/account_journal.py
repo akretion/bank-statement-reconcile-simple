@@ -19,7 +19,7 @@ class AccountJournal(models.Model):
         dataset = super().get_all_labels()
         if self.sale_order_number_autocompletion:
             orders = self.env['sale.order'].search_read([
-                ('company_id', '=', self.env.company.id),
+                ('company_id', '=', self.company_id.id),
                 ('commercial_partner_id', '!=', False),
                 ('state', '!=', 'cancel')],
                 ['commercial_partner_id', 'name'])
