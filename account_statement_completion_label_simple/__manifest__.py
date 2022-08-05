@@ -22,6 +22,7 @@ This module has been written by Alexis de Lattre from Akretion <alexis.delattre@
         'security/ir.model.access.csv',
         'security/ir_rule.xml',
         'wizard/account_statement_label_create_view.xml',
+        'wizard/res_config_settings_views.xml',
         'views/account_bank_statement.xml',
         'views/account_statement_label.xml',
         'views/partner.xml',

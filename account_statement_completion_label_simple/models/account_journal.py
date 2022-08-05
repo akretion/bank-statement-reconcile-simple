@@ -3,7 +3,6 @@
 
 from odoo import fields, models
 from unidecode import unidecode
-MEANINGFUL_PARTNER_NAME_MIN_SIZE = 3
 
 
 class AccountJournal(models.Model):
@@ -38,26 +37,33 @@ class AccountJournal(models.Model):
     def get_all_labels(self):
         self.ensure_one()
         dataset = []
+        company_id = self.company_id.id
         if self.statement_label_autocompletion:
             labels = self.env['account.statement.label'].search_read(
-                [], ['partner_id', 'label', 'account_id'])
+                ['|', ('company_id', '=', False), ('company_id', '=', company_id)],
+                ['partner_id', 'label', 'account_id'])
             for label in labels:
                 dataset.append((
                     label['label'].strip().upper(),
                     label['partner_id'] and label['partner_id'][0] or False,
                     label['account_id'] and label['account_id'][0] or False))
         if self.partner_autocompletion:
+            partner_name_min_size =\
+                self.company_id.statement_autocompletion_partner_name_min_size
             partners = self.env['res.partner'].search_read(
-                [('parent_id', '=', False)], ['name'])
+                [
+                    '|', ('company_id', '=', False), ('company_id', '=', company_id),
+                    ('parent_id', '=', False)],
+                ['name'])
             for partner in partners:
                 partner_name = unidecode(partner['name'].strip().upper())
-                if len(partner_name) >= MEANINGFUL_PARTNER_NAME_MIN_SIZE:
+                if len(partner_name) >= partner_name_min_size:
                     dataset.append((partner_name, partner['id'], False))
         if self.invoice_number_autocompletion:
             invoices = self.env['account.move'].search_read([
                 ('move_type', 'in', ('out_invoice', 'out_refund')),
                 ('state', '=', 'posted'),
-                ('company_id', '=', self.company_id.id),
+                ('company_id', '=', company_id),
                 ('commercial_partner_id', '!=', False),
                 ('name', '!=', False)],
                 ['commercial_partner_id', 'name'])

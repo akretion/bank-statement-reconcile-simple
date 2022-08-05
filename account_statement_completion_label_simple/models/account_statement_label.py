@@ -11,10 +11,11 @@ class AccountStatementLabel(models.Model):
     """Create a new class to map an account statement label to a partner"""
     _name = "account.statement.label"
     _description = "Account Statement Label"
+    _check_company_auto = True
 
     partner_id = fields.Many2one(
         'res.partner', string='Partner', ondelete='cascade',
-        domain=[('parent_id', '=', False)])
+        domain=[('parent_id', '=', False)], check_company=True)
     account_id = fields.Many2one(
         'account.account', 'Account',
         help="It will automatically create a accounting entry for the "
