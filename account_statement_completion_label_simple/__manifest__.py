@@ -16,7 +16,10 @@ This module has been written by Alexis de Lattre from Akretion <alexis.delattre@
     """,
     'author': 'Akretion',
     'website': 'http://www.akretion.com/',
-    'depends': ['account_statement_import'],
+    'depends': [
+        'account_statement_import',
+        'account_menu',
+        ],
     'external_dependencies': {'python': ['unidecode']},
     'data': [
         'security/ir.model.access.csv',
@@ -25,7 +28,7 @@ This module has been written by Alexis de Lattre from Akretion <alexis.delattre@
         'wizard/res_config_settings_views.xml',
         'views/account_bank_statement.xml',
         'views/account_statement_label.xml',
-        'views/partner.xml',
+        'views/res_partner.xml',
         'views/account_journal.xml',
     ],
     'installable': True,

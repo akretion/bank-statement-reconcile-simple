@@ -17,7 +17,7 @@
             <group name="main">
                 <field name="label"/>
                 <field name="partner_id"/>
-                <!-- <field name="account_id"/> -->
+                <field name="counterpart_account_id"/>
                 <field name="company_id" groups="base.group_multi_company"/>
             </group>
         </form>
@@ -31,7 +31,7 @@
         <tree string="Statement Labels" editable="bottom">
             <field name="label"/>
             <field name="partner_id"/>
-            <!-- <field name="account_id"/> -->
+            <field name="counterpart_account_id"/>
             <field name="company_id" groups="base.group_multi_company"/>
         </tree>
     </field>
@@ -44,12 +44,12 @@
         <search string="Search Statement Labels" >
             <field name="label"/>
             <field name="partner_id"/>
-            <!-- <field name="account_id"/>  -->
+            <field name="counterpart_account_id"/>
             <group string="Group By" name="groupby">
                 <filter name="partner_groupby" string="Partner"
                     context="{'group_by': 'partner_id'}"/>
-            <!--    <filter name="account_groupby" string="Account"
-                context="{'group_by': 'account_id'}"/>  -->
+                <filter name="counterpart_account_groupby" string="Counterpart Account"
+                    context="{'group_by': 'counterpart_account_id'}"/>
             </group>
         </search>
     </field>
@@ -64,7 +64,7 @@
 <!-- Bank statement menu is gone, but we still don't want to put this menu
      into configurations because accountant must be able to edit it. -->
 <menuitem id="statement_label_menu" action="statement_label_action"
-    parent="account.menu_finance_entries"
+    parent="account_menu.menu_accounting_bank_and_cash"
     sequence="100"/>
 
 

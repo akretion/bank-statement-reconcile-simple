@@ -21,18 +21,6 @@ class AccountStatementImport(models.TransientModel):
                             if abso.match(line_pref, stlabel[0]):
                                 lvals['partner_id'] = stlabel[1]
                                 if stlabel[2]:
-                                    lvals['account_id'] = stlabel[2]
+                                    lvals['counterpart_account_id'] = stlabel[2]
                                 break
         return stmts_vals
-
-#    def _create_bank_statements(self, stmts_vals, result):
-#        super()._create_bank_statements(stmts_vals, result)
-#        abso = self.env['account.bank.statement']
-#        statements = abslo.search([
-#            ('id', 'in', result['statement_ids']),
-#            ('automate_entry', '=', True),
-#            ])
-#        for statement in statements:
-#            for line in statement.line_ids.filtered(
-#                    lambda x: x.account_id and not x.move_id):
-#                line.fast_counterpart_creation()

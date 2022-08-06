@@ -17,6 +17,10 @@ class AccountJournal(models.Model):
 
     def get_all_labels(self):
         dataset = super().get_all_labels()
+        self._sale_order_get_all_labels(dataset)
+        return dataset
+
+    def _sale_order_get_all_labels(self, dataset):
         if self.sale_order_number_autocompletion:
             orders = self.env['sale.order'].search_read([
                 ('company_id', '=', self.company_id.id),
@@ -28,4 +32,3 @@ class AccountJournal(models.Model):
                     order['name'].upper(),
                     order['commercial_partner_id'][0],
                     False))
-        return dataset

@@ -16,10 +16,15 @@ class AccountStatementLabel(models.Model):
     partner_id = fields.Many2one(
         'res.partner', string='Partner', ondelete='cascade',
         domain=[('parent_id', '=', False)], check_company=True)
-    account_id = fields.Many2one(
-        'account.account', 'Account',
-        help="It will automatically create a accounting entry for the "
-             "statement line and won't propose the reconciliation")
+    counterpart_account_id = fields.Many2one(  # TODO rename field too ?
+        'account.account', 'Counterpart Account',
+        help="When you start processing the bank statement, "
+        "It will automatically process the statement line "
+        "with that account as counterpart.")
+    counterpart_type = fields.Selection([
+        ('auto', 'Automatic'),
+        ('suggest', 'Suggest'),
+        ], string='Processing Type')
     label = fields.Char('Bank Statement Label', required=True)
     company_id = fields.Many2one(
         'res.company', string='Company', default=lambda self: self.env.company)
@@ -29,10 +34,10 @@ class AccountStatementLabel(models.Model):
         'This label already exists in this company !'
         )]
 
-    @api.constrains('partner_id', 'account_id')
+    @api.constrains('partner_id', 'counterpart_account_id')
     def label_check(self):
         for label in self:
-            if not label.partner_id and not label.account_id:
+            if not label.partner_id and not label.counterpart_account_id:
                 raise ValidationError(_(
                     "The bank statement label '%s' should have either "
-                    "a partner or an account.") % label.label)
+                    "a partner or a counterpart account.") % label.label)

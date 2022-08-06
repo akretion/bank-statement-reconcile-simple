@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Copyright 2015-2020 Akretion France (http://www.akretion.com)
+  Copyright 2015-2022 Akretion France (http://www.akretion.com)
   @author Alexis de Lattre <alexis.delattre@akretion.com>
   License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
@@ -17,7 +17,7 @@
                 <field name="partner_autocompletion"/>
                 <field name="invoice_number_autocompletion"/>
                 <field name="statement_label_autocompletion"/>
-                <!-- <field name="automate_entry" attrs="{'invisible': [('statement_label_autocompletion', '=', False)]}"/>  -->
+                <field name="automate_entry" attrs="{'invisible': [('statement_label_autocompletion', '=', False)]}"/>
             </group>
         </xpath>
     </field>
