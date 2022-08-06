@@ -11,34 +11,32 @@ class AccountJournal(models.Model):
     statement_label_autocompletion = fields.Boolean(
         string="Label Completion",
         default=True,
-        help="If enabled, the partner field of bank statement lines "
-        "will be automatically set if it contains the label "
-        "of a bank statement label with a partner.")
+        help="If enabled, pre-recorded bank statement labels "
+        "configured with a partner will be used to automatically set "
+        "the partner on bank statement lines.")
 
     partner_autocompletion = fields.Boolean(
-        string="Partner Completion",
+        string="Partner Name Completion",
         default=True,
-        help="If enabled, the partner field of bank statement lines "
-        "will be automatically set if it contains the exact "
-        "name of a partner.")
+        help="If enabled, the partner will be set automatically on a "
+        "bank statement line if it contains the exact name of that partner "
+        "(independenly of accents and letter case).")
 
     invoice_number_autocompletion = fields.Boolean(
         string="Invoice Number Completion",
         default=True,
-        help="If enabled, the partner field of bank statement "
-        "lines will be automatically set if it contains a customer "
-        "invoice/refund number.")
+        help="If enabled, the partner will be set automatically on a "
+        "bank statement line if it contains a customer invoice/refund number "
+        "of that partner.")
 
     automate_entry = fields.Boolean(
         string="Automate Counterpart",
         default=True,
-        help="If enabled, a specific counterpart account will be "
-        "automatically set and the statement line will be auto-validated "
-        "if it contains the label of a bank statement label with a counterpart "
-        "account.")
+        help="If enabled, pre-recorded bank statement labels "
+        "configured with a counter-part account will be used to automatically set "
+        "the counter-part journal item and validate the bank statement line.")
 
     def get_all_labels(self):
-        # TODO cut this method for easier inheritance
         self.ensure_one()
         dataset = []
         self._statement_label_get_all_labels(dataset)

@@ -19,7 +19,7 @@
                 <div class="o_setting_right_pane">
                     <label for="statement_autocompletion_partner_name_min_size" />
                     <div class="text-muted">
-                    When Partner Completion is enabled on a bank journal, partners that have a name smaller than the number of caracters configured here will be excluded from that feature.
+                    When Partner Name Completion is enabled on a bank journal, partners that have a name smaller than the number of caracters configured here will be excluded from that feature.
                     </div>
                     <field name="statement_autocompletion_partner_name_min_size" />
                 </div>

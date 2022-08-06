@@ -14,5 +14,5 @@ class ResCompany(models.Model):
     _sql_constraints = [(
         'statement_autocompletion_partner_name_min_size_constraint',
         'CHECK(statement_autocompletion_partner_name_min_size >= 1)',
-        'The minimum value for Partner Name Min Size is 1.',
+        'The Partner Name Min Size must be greater than or equal to 1.',
         )]

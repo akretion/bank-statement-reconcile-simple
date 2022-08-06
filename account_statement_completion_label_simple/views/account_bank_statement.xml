@@ -16,7 +16,7 @@
         <button name="button_validate_or_action" position="after">
             <button name="update_statement_lines" string="Update Statement Lines"
                 type="object" states="open,posted"
-                help="Use bank statement labels and partner names to set the partner on lines that don't have a partner and that haven't been reconciled yet" />
+                help="Detect partners and process bank statement lines using the methods configured on the bank journal." />
         </button>
         <xpath expr="//field[@name='line_ids']/tree/field[@name='payment_ref']" position="after">
             <button name="%(account_statement_completion_label_simple.account_statement_label_create_action)d" type="action" string="Learn Label" icon="fa-save" attrs="{'invisible': ['|', ('partner_id', '!=', False), ('is_reconciled', '=', True)]}"/>

@@ -1,0 +1,337 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_statement_completion_label_simple
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-06 22:20+0000\n"
+"PO-Revision-Date: 2022-08-06 22:20+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_statement_completion_label_simple
+#: code:addons/account_statement_completion_label_simple/models/account_bank_statement.py:0
+#, python-format
+msgid "%d bank statement line(s) updated."
+msgstr "%d ligne(s) de relevé de compte mise-à-jour."
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model,name:account_statement_completion_label_simple.model_account_statement_label_create
+msgid "Account Statement Label Create Wizard"
+msgstr "Assistant de création de libellés de relevé de compte"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_journal__automate_entry
+msgid "Automate Counterpart"
+msgstr "Automatiser la contre-partie"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model,name:account_statement_completion_label_simple.model_account_bank_statement
+msgid "Bank Statement"
+msgstr "Relevé bancaire"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model,name:account_statement_completion_label_simple.model_account_statement_label
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label__label
+msgid "Bank Statement Label"
+msgstr "Libellé de relevé de compte"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.actions.act_window,name:account_statement_completion_label_simple.statement_label_action
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_partner__bank_statement_label_ids
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_users__bank_statement_label_ids
+#: model:ir.ui.menu,name:account_statement_completion_label_simple.statement_label_menu
+#: model_terms:ir.ui.view,arch_db:account_statement_completion_label_simple.view_partner_property_form
+msgid "Bank Statement Labels"
+msgstr "Libellés de relevé de compte"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label_create__statement_line_id
+msgid "Bank Statement Line"
+msgstr "Ligne de relevé de compte"
+
+#. module: account_statement_completion_label_simple
+#: model_terms:ir.ui.view,arch_db:account_statement_completion_label_simple.view_account_journal_form
+msgid "Bank Statement Line Auto-Completion"
+msgstr "Auto-complétion des lignes de relevé de compte"
+
+#. module: account_statement_completion_label_simple
+#: model_terms:ir.ui.view,arch_db:account_statement_completion_label_simple.account_statement_label_create_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model,name:account_statement_completion_label_simple.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label__company_id
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label_create__company_id
+msgid "Company"
+msgstr "Société"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model,name:account_statement_completion_label_simple.model_res_config_settings
+msgid "Config Settings"
+msgstr "res.config.settings"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model,name:account_statement_completion_label_simple.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label__counterpart_account_id
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label_create__counterpart_account_id
+#: model_terms:ir.ui.view,arch_db:account_statement_completion_label_simple.statement_label_search
+msgid "Counterpart Account"
+msgstr "Compte de contre-partie"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.actions.act_window,name:account_statement_completion_label_simple.account_statement_label_create_action
+#: model_terms:ir.ui.view,arch_db:account_statement_completion_label_simple.account_statement_label_create_form
+msgid "Create Bank Statement Label"
+msgstr "Créer un libellé de relevé de compte"
+
+#. module: account_statement_completion_label_simple
+#: model_terms:ir.ui.view,arch_db:account_statement_completion_label_simple.account_statement_label_create_form
+msgid "Create Label and Update"
+msgstr "Créer le libellé et mettre-à-jour"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label__create_uid
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label_create__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label__create_date
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label_create__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: account_statement_completion_label_simple
+#: model_terms:ir.ui.view,arch_db:account_statement_completion_label_simple.view_bank_statement_form
+msgid ""
+"Detect partners and process bank statement lines using the methods "
+"configured on the bank journal."
+msgstr ""
+"Détecte les partenaires et traite les lignes de relevé de compte en "
+"utilisant les méthodes activées sur le journal de banque."
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_bank_statement__display_name
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_journal__display_name
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_import__display_name
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label__display_name
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label_create__display_name
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_company__display_name
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_partner__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: account_statement_completion_label_simple
+#: model_terms:ir.ui.view,arch_db:account_statement_completion_label_simple.statement_label_search
+msgid "Group By"
+msgstr "Grouper par"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_bank_statement__id
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_journal__id
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_import__id
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label__id
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label_create__id
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_company__id
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_config_settings__id
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,help:account_statement_completion_label_simple.field_account_journal__automate_entry
+msgid ""
+"If enabled, pre-recorded bank statement labels configured with a counter-"
+"part account will be used to automatically set the counter-part journal item"
+" and validate the bank statement line."
+msgstr ""
+"Si activé, les libellés de relevé de compte pré-enregistrés avec un compte "
+"de contre-partie seront utilisés pour créer automatiquement la ligne "
+"comptable de contre-partie et valider la ligne de relevé de compte."
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,help:account_statement_completion_label_simple.field_account_journal__statement_label_autocompletion
+msgid ""
+"If enabled, pre-recorded bank statement labels configured with a partner "
+"will be used to automatically set the partner on bank statement lines."
+msgstr ""
+"Si activé, les libellés de relevé de compte pré-enregistrés avec un "
+"partenaire seront utilisés pour renseigner automatiquement le partenaire sur"
+" la ligne de relevé de compte."
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,help:account_statement_completion_label_simple.field_account_journal__invoice_number_autocompletion
+msgid ""
+"If enabled, the partner will be set automatically on a bank statement line "
+"if it contains a customer invoice/refund number of that partner."
+msgstr ""
+"Si activé, le partenaire sera automatiquement renseigné sur une ligne de "
+"relevé de compte si cette dernière contient un numéro de facture/avoir "
+"client de ce partenaire."
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,help:account_statement_completion_label_simple.field_account_journal__partner_autocompletion
+msgid ""
+"If enabled, the partner will be set automatically on a bank statement line "
+"if it contains the exact name of that partner (independenly of accents and "
+"letter case)."
+msgstr ""
+"Si activé, le partenaire sera automatiquement renseigné sur une ligne de "
+"relevé de compte si cette dernière contient le nom exact de ce partenaire "
+"(indépendemment des accents et de la casse)."
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model,name:account_statement_completion_label_simple.model_account_statement_import
+msgid "Import Bank Statement Files"
+msgstr "Import des relevés bancaires"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_journal__invoice_number_autocompletion
+msgid "Invoice Number Completion"
+msgstr "Complétion via les numéros de facture"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model,name:account_statement_completion_label_simple.model_account_journal
+msgid "Journal"
+msgstr ""
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_journal__statement_label_autocompletion
+msgid "Label Completion"
+msgstr "Complétion via les libellés"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_bank_statement____last_update
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_journal____last_update
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_import____last_update
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label____last_update
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label_create____last_update
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_company____last_update
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label__write_uid
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label_create__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise-à-jour par"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label__write_date
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label_create__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise-à-jour le"
+
+#. module: account_statement_completion_label_simple
+#: model_terms:ir.ui.view,arch_db:account_statement_completion_label_simple.view_bank_statement_form
+msgid "Learn Label"
+msgstr "Retenir le libellé"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label_create__new_label
+msgid "New Label"
+msgstr "Nouveau libellé"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_partner__bank_statement_label_count
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_users__bank_statement_label_count
+msgid "Number of Bank Statement Labels"
+msgstr "Nombre de libellés de relevé de compte"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label__partner_id
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label_create__partner_id
+#: model_terms:ir.ui.view,arch_db:account_statement_completion_label_simple.statement_label_search
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_journal__partner_autocompletion
+msgid "Partner Name Completion"
+msgstr "Complétion via les noms des partenaires"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_company__statement_autocompletion_partner_name_min_size
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_config_settings__statement_autocompletion_partner_name_min_size
+msgid "Partner Name Min Size"
+msgstr "Taille minimum du nom des partenaires"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label_create__current_label
+msgid "Statement Line Label"
+msgstr "Libellé de la ligne de relevé"
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.constraint,message:account_statement_completion_label_simple.constraint_res_company_statement_autocompletion_partner_name_min_size_constraint
+msgid "The Partner Name Min Size must be greater than or equal to 1."
+msgstr ""
+"La taille minimum du nom des partenaires doit être supérieure ou égale à 1."
+
+#. module: account_statement_completion_label_simple
+#: code:addons/account_statement_completion_label_simple/models/account_statement_label.py:0
+#, python-format
+msgid ""
+"The bank statement label '%s' has a Counterpart Account, so it must be "
+"linked to a Company (the company of the Counterpart Account)."
+msgstr ""
+"Le libellé de relevé '%s' a un compte de contre-partie, donc il doit être "
+"lié à une société (la société du compte de contre-partie)."
+
+#. module: account_statement_completion_label_simple
+#: code:addons/account_statement_completion_label_simple/models/account_statement_label.py:0
+#, python-format
+msgid ""
+"The bank statement label '%s' should have either a partner or a counterpart "
+"account."
+msgstr ""
+"Le libellé de relevé '%s' doit être configuré soit avec un partenaire, soit "
+"avec un compte de contre-partie."
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.constraint,message:account_statement_completion_label_simple.constraint_account_statement_label_label_company_unique
+msgid "This label already exists!"
+msgstr "Ce libellé existe déjà !"
+
+#. module: account_statement_completion_label_simple
+#: model_terms:ir.ui.view,arch_db:account_statement_completion_label_simple.view_bank_statement_form
+msgid "Update Statement Lines"
+msgstr "Mettre à jour les lignes"
+
+#. module: account_statement_completion_label_simple
+#: model_terms:ir.ui.view,arch_db:account_statement_completion_label_simple.res_config_settings_view_form
+msgid ""
+"When Partner Name Completion is enabled on a bank journal, partners that "
+"have a name smaller than the number of caracters configured here will be "
+"excluded from that feature."
+msgstr ""
+"Quand la complétion via les noms de partenaires est activée sur le journal "
+"de banque, les partenaires qui ont un nom plus petit que le nombre de "
+"caractères configurés ici seront exclus de cette fonctionnalité."
+
+#. module: account_statement_completion_label_simple
+#: model:ir.model.fields,help:account_statement_completion_label_simple.field_account_statement_label__counterpart_account_id
+msgid ""
+"When you import the bank statement, it will automatically process the "
+"matched statement line with that account as counterpart."
+msgstr ""
+"Quand vous importez un relevé de compte, Odoo va automatiquement traiter les"
+" lignes de relevé concernées avec ce compte comme contre-partie."

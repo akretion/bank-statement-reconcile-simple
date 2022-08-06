@@ -4,7 +4,7 @@
 # @author: Florian da Costa <florian.dacosta@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models
+from odoo import api, models, _
 
 
 class AccountBankStatement(models.Model):
@@ -19,6 +19,7 @@ class AccountBankStatement(models.Model):
                 ('statement_id', '=', self.id),
                 ('is_reconciled', '=', False),
                 ])
+            updated_lines = {}
             for line in lines:
                 line_pay_ref = line.payment_ref.upper()
                 for stlabel in dataset:
@@ -26,6 +27,7 @@ class AccountBankStatement(models.Model):
                         if stlabel[1] and not line.partner_id:
                             lvals = {'partner_id': stlabel[1]}
                             line.write(lvals)
+                            updated_lines[line.id] = True
                         if stlabel[2]:
                             line.move_id.line_ids.with_context(
                                 force_delete=True).unlink()
@@ -34,7 +36,12 @@ class AccountBankStatement(models.Model):
                                 in line._prepare_move_line_default_vals(
                                     counterpart_account_id=stlabel[2])]}
                             line.move_id.write(mvals)
-                        break
+                            updated_lines[line.id] = True
+                        if updated_lines.get(line.id):
+                            break
+            if updated_lines:
+                self.message_post(
+                    body=_("%d bank statement line(s) updated.") % len(updated_lines))
 
     @api.model
     def match(self, bank_statement_line_pay_ref, label):

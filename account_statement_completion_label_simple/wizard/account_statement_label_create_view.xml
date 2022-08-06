@@ -14,9 +14,11 @@
         <form string="Create Bank Statement Label">
             <group name="main">
                 <field name="statement_line_id" invisible="1"/>
+                <field name="company_id" invisible="1"/>
                 <field name="current_label"/>
                 <field name="new_label"/>
                 <field name="partner_id" context="{'default_is_company': True}"/>
+                <field name="counterpart_account_id"/>
             </group>
             <footer>
                 <button type="object" name="run" string="Create Label and Update"
