@@ -29,13 +29,6 @@ class AccountJournal(models.Model):
         "bank statement line if it contains a customer invoice/refund number "
         "of that partner.")
 
-    automate_entry = fields.Boolean(
-        string="Automate Counterpart",
-        default=True,
-        help="If enabled, pre-recorded bank statement labels "
-        "configured with a counter-part account will be used to automatically set "
-        "the counter-part journal item and validate the bank statement line.")
-
     def get_all_labels(self):
         self.ensure_one()
         dataset = []
