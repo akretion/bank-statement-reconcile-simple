@@ -17,7 +17,7 @@ This module has been written by Alexis de Lattre from Akretion <alexis.delattre@
     'author': 'Akretion',
     'website': 'https://github.com/akretion/bank-statement-reconcile-simple',
     'depends': [
-        'account_statement_import',
+        'account_statement_import_base',
         'account_menu',
         ],
     'external_dependencies': {'python': ['unidecode']},

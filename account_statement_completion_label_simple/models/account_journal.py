@@ -57,7 +57,7 @@ class AccountJournal(models.Model):
                 ['partner_id', 'label', 'counterpart_account_id'])
             for label in labels:
                 dataset.append((
-                    label['label'].strip().upper(),
+                    unidecode(label['label'].strip().upper()),
                     label['partner_id'] and label['partner_id'][0] or False,
                     label['counterpart_account_id'] and
                     label['counterpart_account_id'][0] or False))
@@ -93,3 +93,25 @@ class AccountJournal(models.Model):
                     invoice['name'].upper(),
                     invoice['commercial_partner_id'][0],
                     False))
+
+    def _statement_line_import_speeddict(self):
+        speeddict = super()._statement_line_import_speeddict()
+        speeddict['labels'] = self.get_all_labels()
+        return speeddict
+
+    def _statement_line_import_update_hook(self, st_line_vals, speeddict):
+        '''Match the partner from the account.statement.label'''
+        super()._statement_line_import_update_hook(st_line_vals, speeddict)
+        abso = self.env['account.bank.statement']
+        if (
+                speeddict['labels'] and
+                not st_line_vals.get('partner_id') and
+                not st_line_vals.get('counterpart_account_id')):
+            line_pay_ref = unidecode(st_line_vals['payment_ref'].upper())
+            for stlabel in speeddict['labels']:
+                if abso.match(line_pay_ref, stlabel[0]):
+                    if stlabel[1]:
+                        st_line_vals['partner_id'] = stlabel[1]
+                    if stlabel[2]:
+                        st_line_vals['counterpart_account_id'] = stlabel[2]
+                    break
