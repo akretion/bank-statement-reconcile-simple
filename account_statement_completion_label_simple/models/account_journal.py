@@ -56,11 +56,12 @@ class AccountJournal(models.Model):
                 ],
                 ['partner_id', 'label', 'counterpart_account_id'])
             for label in labels:
-                dataset.append((
-                    unidecode(label['label'].strip().upper()),
-                    label['partner_id'] and label['partner_id'][0] or False,
-                    label['counterpart_account_id'] and
-                    label['counterpart_account_id'][0] or False))
+                dataset.append({
+                    "label": unidecode(label['label'].strip().upper()),
+                    "partner_id": label['partner_id'] and label['partner_id'][0] or False,
+                    "account_id": label['counterpart_account_id'] and
+                    label['counterpart_account_id'][0] or False,
+                })
 
     def _partner_get_all_labels(self, dataset):
         if self.partner_autocompletion:
@@ -77,7 +78,10 @@ class AccountJournal(models.Model):
             for partner in partners:
                 partner_name = unidecode(partner['name'].strip().upper())
                 if len(partner_name) >= partner_name_min_size:
-                    dataset.append((partner_name, partner['id'], False))
+                    dataset.append({
+                        "label": partner_name,
+                        "partner_id": partner['id'],
+                    })
 
     def _invoice_get_all_labels(self, dataset):
         if self.invoice_number_autocompletion:
@@ -89,10 +93,10 @@ class AccountJournal(models.Model):
                 ('name', '!=', False)],
                 ['commercial_partner_id', 'name'])
             for invoice in invoices:
-                dataset.append((
-                    invoice['name'].upper(),
-                    invoice['commercial_partner_id'][0],
-                    False))
+                dataset.append({
+                    "label": invoice['name'].upper(),
+                    "partner_id": invoice['commercial_partner_id'][0],
+                })
 
     def _statement_line_import_speeddict(self):
         speeddict = super()._statement_line_import_speeddict()
@@ -109,9 +113,9 @@ class AccountJournal(models.Model):
                 not st_line_vals.get('counterpart_account_id')):
             line_pay_ref = unidecode(st_line_vals['payment_ref'].upper())
             for stlabel in speeddict['labels']:
-                if abslo.match(line_pay_ref, stlabel[0]):
-                    if stlabel[1]:
-                        st_line_vals['partner_id'] = stlabel[1]
-                    if stlabel[2]:
-                        st_line_vals['counterpart_account_id'] = stlabel[2]
+                if abslo.match(line_pay_ref, stlabel["label"]):
+                    if stlabel.get("partner_id"):
+                        st_line_vals['partner_id'] = stlabel["partner_id"]
+                    if stlabel.get("account_id"):
+                        st_line_vals['counterpart_account_id'] = stlabel["account_id"]
                     break
