@@ -7,16 +7,18 @@
 from odoo import api, models, _
 
 
-class AccountBankStatement(models.Model):
-    _inherit = 'account.bank.statement'
+class AccountBankStatementLine(models.Model):
+    _inherit = 'account.bank.statement.line'
 
     def update_statement_lines(self):
         """Method called by the button on bank statement form view"""
-        self.ensure_one()
-        dataset = self.journal_id.get_all_labels()
+        journal = self.journal_id
+        if len(journal) != 1:
+            raise # TODO
+        dataset = journal.get_all_labels()
         if dataset:
             lines = self.env['account.bank.statement.line'].search([
-                ('statement_id', '=', self.id),
+                ('id', 'in', self.ids),
                 ('is_reconciled', '=', False),
                 ])
             updated_lines = {}
@@ -28,20 +30,23 @@ class AccountBankStatement(models.Model):
                             lvals = {'partner_id': stlabel[1]}
                             line.write(lvals)
                             updated_lines[line.id] = True
-                        if stlabel[2]:
-                            line.move_id.line_ids.with_context(
-                                force_delete=True).unlink()
-                            mvals = {'line_ids': [
-                                (0, 0, x) for x
-                                in line._prepare_move_line_default_vals(
-                                    counterpart_account_id=stlabel[2])]}
-                            line.move_id.write(mvals)
-                            updated_lines[line.id] = True
                         if updated_lines.get(line.id):
+                            line.move_id.message_post(
+                                body=_("bank statement line updated with partner %s") % line.partner_id.name)
                             break
-            if updated_lines:
-                self.message_post(
-                    body=_("%d bank statement line(s) updated.") % len(updated_lines))
+                        # Account is set at line creation. In case of creation of 
+                        # bank statement label after the statement line creation
+                        # it has to be manually reconciled for now, to avoid
+                        # adding too much complexity to (very) small user gain.
+#                        if stlabel[2]:
+#                            line.move_id.line_ids.with_context(
+#                                force_delete=True).unlink()
+#                            mvals = {'line_ids': [
+#                                (0, 0, x) for x
+#                                in line._prepare_move_line_default_vals(
+#                                    counterpart_account_id=stlabel[2])]}
+#                            line.move_id.write(mvals)
+#                            updated_lines[line.id] = True
 
     @api.model
     def match(self, bank_statement_line_pay_ref, label):

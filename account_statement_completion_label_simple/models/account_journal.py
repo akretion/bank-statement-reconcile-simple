@@ -29,12 +29,12 @@ class AccountJournal(models.Model):
         "bank statement line if it contains a customer invoice/refund number "
         "of that partner.")
 
-    automate_entry = fields.Boolean(
-        string="Automate Counterpart",
-        default=True,
-        help="If enabled, pre-recorded bank statement labels "
-        "configured with a counter-part account will be used to automatically set "
-        "the counter-part journal item and validate the bank statement line.")
+#    automate_entry = fields.Boolean(
+#        string="Automate Counterpart",
+#        default=True,
+#        help="If enabled, pre-recorded bank statement labels "
+#        "configured with a counter-part account will be used to automatically set "
+#        "the counter-part journal item and validate the bank statement line.")
 
     def get_all_labels(self):
         self.ensure_one()
@@ -102,14 +102,14 @@ class AccountJournal(models.Model):
     def _statement_line_import_update_hook(self, st_line_vals, speeddict):
         '''Match the partner from the account.statement.label'''
         super()._statement_line_import_update_hook(st_line_vals, speeddict)
-        abso = self.env['account.bank.statement']
+        abslo = self.env['account.bank.statement.line']
         if (
                 speeddict['labels'] and
                 not st_line_vals.get('partner_id') and
                 not st_line_vals.get('counterpart_account_id')):
             line_pay_ref = unidecode(st_line_vals['payment_ref'].upper())
             for stlabel in speeddict['labels']:
-                if abso.match(line_pay_ref, stlabel[0]):
+                if abslo.match(line_pay_ref, stlabel[0]):
                     if stlabel[1]:
                         st_line_vals['partner_id'] = stlabel[1]
                     if stlabel[2]:
