@@ -18,7 +18,9 @@
                 <field name="label"/>
                 <field name="partner_id"/>
                 <field name="counterpart_account_id"/>
-                <field name="company_id" attrs="{'required': [('counterpart_account_id', '!=', False)]}"/>
+                <!-- company_id invisible with no group is necessary because of a domain on counterpart_account_id on python part -->
+                <field name="company_id" invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company" attrs="{'required': [('counterpart_account_id', '!=', False)]}"/>
             </group>
         </form>
     </field>
@@ -32,7 +34,9 @@
             <field name="label"/>
             <field name="partner_id"/>
             <field name="counterpart_account_id"/>
-            <field name="company_id" attrs="{'required': [('counterpart_account_id', '!=', False)]}"/>
+             <!-- company_id invisible with no group is necessary because of a domain on counterpart_account_id on python part -->
+            <field name="company_id" invisible="1"/>
+            <field name="company_id" groups="base.group_multi_company" attrs="{'required': [('counterpart_account_id', '!=', False)]}"/>
         </tree>
     </field>
 </record>
