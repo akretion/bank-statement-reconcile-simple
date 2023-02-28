@@ -25,9 +25,9 @@ class AccountBankStatementLine(models.Model):
             for line in lines:
                 line_pay_ref = line.payment_ref.upper()
                 for stlabel in dataset:
-                    if self.match(line_pay_ref, stlabel[0]):
-                        if stlabel[1] and not line.partner_id:
-                            lvals = {'partner_id': stlabel[1]}
+                    if self.match(line_pay_ref, stlabel["label"]):
+                        if stlabel.get("partner_id") and not line.partner_id:
+                            lvals = {'partner_id': stlabel["partner_id"]}
                             line.write(lvals)
                             updated_lines[line.id] = True
                         if updated_lines.get(line.id):
