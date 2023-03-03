@@ -13,7 +13,7 @@
     <field name="inherit_id" ref="account.view_partner_property_form"/>
     <field name="arch" type="xml">
         <group name="accounting_entries" position="inside">
-            <div name="bank_statement_labels">
+            <div name="bank_statement_labels" colspan="2">
                 <button type="action" class="btn-link"
                     name="%(statement_label_action)d"
                     context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}">
