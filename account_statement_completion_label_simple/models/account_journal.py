@@ -1,7 +1,7 @@
 # Copyright 2016-2019 Akretion France (http://www.akretion.com/)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
-from odoo import fields, models
+from odoo import api, fields, models, _
 from unidecode import unidecode
 
 
@@ -123,3 +123,48 @@ class AccountJournal(models.Model):
                     st_line_vals = self._get_update_statement_line_vals_from_labels(
                         stlabel, st_line_vals)
                     break
+
+    def update_statement_lines(self):
+        """Method called by the run() of the wizard account.statement.label.create"""
+        self.ensure_one()
+        dataset = self.get_all_labels()
+        if dataset:
+            lines = self.env['account.bank.statement.line'].search([
+                ('journal_id', '=', self.id),
+                ('partner_id', '=', False),
+                ('is_reconciled', '=', False),
+                ])
+            updated_lines = {}
+            for line in lines:
+                line_pay_ref = line.payment_ref.upper()
+                for stlabel in dataset:
+                    if self.match(line_pay_ref, stlabel["label"]):
+                        if stlabel.get("partner_id") and not line.partner_id:
+                            lvals = {'partner_id': stlabel["partner_id"]}
+                            line.write(lvals)
+                            updated_lines[line.id] = True
+                        if updated_lines.get(line.id):
+                            line.move_id.message_post(body=_(
+                                "Updated to partner "
+                                "<a href=# data-oe-model=res.partner data-oe-id=%d>%s</a> via a new bank statement label.") % (line.partner_id.id, line.partner_id.display_name))
+                            break
+                        # Account is set at line creation. In case of creation of
+                        # bank statement label after the statement line creation
+                        # it has to be manually reconciled for now, to avoid
+                        # adding too much complexity to (very) small user gain.
+#                        if stlabel[2]:
+#                            line.move_id.line_ids.with_context(
+#                                force_delete=True).unlink()
+#                            mvals = {'line_ids': [
+#                                (0, 0, x) for x
+#                                in line._prepare_move_line_default_vals(
+#                                    counterpart_account_id=stlabel[2])]}
+#                            line.move_id.write(mvals)
+#                            updated_lines[line.id] = True
+
+    @api.model
+    def match(self, bank_statement_line_pay_ref, label):
+        if label in bank_statement_line_pay_ref:
+            return True
+        else:
+            return False

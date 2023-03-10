@@ -47,4 +47,4 @@ class AccountStatementLabelCreate(models.TransientModel):
             'partner_id': self.partner_id.id or False,
             'counterpart_account_id': self.counterpart_account_id.id or False,
         })
-        self.statement_line_id.update_statement_lines()
+        self.statement_line_id.journal_id.update_statement_lines()
