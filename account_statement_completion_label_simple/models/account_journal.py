@@ -17,7 +17,6 @@ class AccountJournal(models.Model):
 
     partner_autocompletion = fields.Boolean(
         string="Partner Name Completion",
-        default=True,
         help="If enabled, the partner will be set automatically on a "
         "bank statement line if it contains the exact name of that partner "
         "(independenly of accents and letter case).")
