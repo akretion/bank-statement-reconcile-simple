@@ -112,14 +112,13 @@ class AccountJournal(models.Model):
     def _statement_line_import_update_hook(self, st_line_vals, speeddict):
         '''Match the partner from the account.statement.label'''
         super()._statement_line_import_update_hook(st_line_vals, speeddict)
-        abslo = self.env['account.bank.statement.line']
         if (
                 speeddict['labels'] and
                 not st_line_vals.get('partner_id') and
                 not st_line_vals.get('counterpart_account_id')):
             line_pay_ref = unidecode(st_line_vals['payment_ref'].upper())
             for stlabel in speeddict['labels']:
-                if abslo.match(line_pay_ref, stlabel["label"]):
+                if self.match(line_pay_ref, stlabel["label"]):
                     st_line_vals = self._get_update_statement_line_vals_from_labels(
                         stlabel, st_line_vals)
                     break
