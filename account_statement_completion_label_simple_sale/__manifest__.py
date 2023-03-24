@@ -4,7 +4,7 @@
 
 {
     'name': 'Bank Statement Completion from Label - Sale extension',
-    'version': '14.0.1.0.0',
+    'version': '16.0.1.0.0',
     'category': 'Accounting',
     'license': 'AGPL-3',
     'description': """

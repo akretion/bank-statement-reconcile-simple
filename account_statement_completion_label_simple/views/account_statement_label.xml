@@ -18,6 +18,8 @@
                 <field name="label"/>
                 <field name="partner_id"/>
                 <field name="counterpart_account_id"/>
+                <!-- company_id invisible with no group is necessary because of a domain on counterpart_account_id on python part -->
+                <field name="company_id" invisible="1"/>
                 <field name="company_id" groups="base.group_multi_company" attrs="{'required': [('counterpart_account_id', '!=', False)]}"/>
             </group>
         </form>
@@ -32,6 +34,8 @@
             <field name="label"/>
             <field name="partner_id"/>
             <field name="counterpart_account_id"/>
+             <!-- company_id invisible with no group is necessary because of a domain on counterpart_account_id on python part -->
+            <field name="company_id" invisible="1"/>
             <field name="company_id" groups="base.group_multi_company" attrs="{'required': [('counterpart_account_id', '!=', False)]}"/>
         </tree>
     </field>
@@ -64,7 +68,7 @@
 <!-- Bank statement menu is gone, but we still don't want to put this menu
      into configurations because accountant must be able to edit it. -->
 <menuitem id="statement_label_menu" action="statement_label_action"
-    parent="account_menu.menu_accounting_bank_and_cash"
+    parent="account_usability.menu_accounting_bank_and_cash"
     sequence="100"/>
 
 

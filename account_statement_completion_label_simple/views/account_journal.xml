@@ -12,12 +12,11 @@
     <field name="model">account.journal</field>
     <field name="inherit_id" ref="account.view_account_journal_form"/>
     <field name="arch" type="xml">
-        <xpath expr="//field[@name='bank_statements_source']/.." position="after">
+        <xpath expr="//group[@name='bank_account_number']" position="after">
             <group name="bank_autocompletion" string="Bank Statement Line Auto-Completion" attrs="{'invisible': [('type', '!=', 'bank')]}">
                 <field name="partner_autocompletion"/>
                 <field name="invoice_number_autocompletion"/>
                 <field name="statement_label_autocompletion"/>
-                <field name="automate_entry" attrs="{'invisible': [('statement_label_autocompletion', '=', False)]}"/>
             </group>
         </xpath>
     </field>
