@@ -1,0 +1,36 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_statement_completion_label_simple_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-08 14:28+0000\n"
+"PO-Revision-Date: 2023-06-08 14:32+0000\n"
+"Last-Translator: Alexis de Lattre <alexis.delattre@akretion.com>\n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_statement_completion_label_simple_sale
+#: model:ir.model.fields,help:account_statement_completion_label_simple_sale.field_account_journal__sale_order_number_autocompletion
+msgid ""
+"If enabled, the partner field of bank statement lines will be automatically "
+"set if it contains a sale order number."
+msgstr ""
+"Si cette option est activée, le champ partenaire des lignes de relevé de "
+"compte sera automatiquement renseigné s'il contient un numéro de commande client."
+
+#. module: account_statement_completion_label_simple_sale
+#: model:ir.model,name:account_statement_completion_label_simple_sale.model_account_journal
+msgid "Journal"
+msgstr "Journal"
+
+#. module: account_statement_completion_label_simple_sale
+#: model:ir.model.fields,field_description:account_statement_completion_label_simple_sale.field_account_journal__sale_order_number_autocompletion
+msgid "Sale Order Number Completion"
+msgstr "Complétion via les numéros de commande client"

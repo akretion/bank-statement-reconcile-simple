@@ -7,9 +7,10 @@ msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-06 22:20+0000\n"
-"PO-Revision-Date: 2022-08-06 22:20+0000\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-06-08 14:11+0000\n"
+"Last-Translator: Alexis de Lattre <alexis.delattre@akretion.com>\n"
 "Language-Team: \n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -19,7 +20,7 @@ msgstr ""
 #: code:addons/account_statement_completion_label_simple/models/account_bank_statement.py:0
 #, python-format
 msgid "%d bank statement line(s) updated."
-msgstr "%d ligne(s) de relevé de compte mise-à-jour."
+msgstr "%d ligne(s) de relevé de compte mise(s)-à-jour."
 
 #. module: account_statement_completion_label_simple
 #: model:ir.model,name:account_statement_completion_label_simple.model_account_statement_label_create
@@ -34,7 +35,7 @@ msgstr "Automatiser la contre-partie"
 #. module: account_statement_completion_label_simple
 #: model:ir.model,name:account_statement_completion_label_simple.model_account_bank_statement
 msgid "Bank Statement"
-msgstr "Relevé bancaire"
+msgstr "Relevé de compte"
 
 #. module: account_statement_completion_label_simple
 #: model:ir.model,name:account_statement_completion_label_simple.model_account_statement_label
@@ -80,12 +81,12 @@ msgstr "Société"
 #. module: account_statement_completion_label_simple
 #: model:ir.model,name:account_statement_completion_label_simple.model_res_config_settings
 msgid "Config Settings"
-msgstr "res.config.settings"
+msgstr "Configuration"
 
 #. module: account_statement_completion_label_simple
 #: model:ir.model,name:account_statement_completion_label_simple.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
 #. module: account_statement_completion_label_simple
 #: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label__counterpart_account_id
@@ -124,7 +125,7 @@ msgid ""
 "configured on the bank journal."
 msgstr ""
 "Détecte les partenaires et traite les lignes de relevé de compte en "
-"utilisant les méthodes activées sur le journal de banque."
+"utilisant les méthodes activées dans la configuration du journal de banque."
 
 #. module: account_statement_completion_label_simple
 #: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_bank_statement__display_name
@@ -153,17 +154,17 @@ msgstr "Grouper par"
 #: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_config_settings__id
 #: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_partner__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_statement_completion_label_simple
 #: model:ir.model.fields,help:account_statement_completion_label_simple.field_account_journal__automate_entry
 msgid ""
 "If enabled, pre-recorded bank statement labels configured with a counter-"
-"part account will be used to automatically set the counter-part journal item"
-" and validate the bank statement line."
+"part account will be used to automatically set the counter-part journal item "
+"and validate the bank statement line."
 msgstr ""
 "Si activé, les libellés de relevé de compte pré-enregistrés avec un compte "
-"de contre-partie seront utilisés pour créer automatiquement la ligne "
+"de contre-partie seront utilisés pour créer automatiquement l'écriture "
 "comptable de contre-partie et valider la ligne de relevé de compte."
 
 #. module: account_statement_completion_label_simple
@@ -173,8 +174,8 @@ msgid ""
 "will be used to automatically set the partner on bank statement lines."
 msgstr ""
 "Si activé, les libellés de relevé de compte pré-enregistrés avec un "
-"partenaire seront utilisés pour renseigner automatiquement le partenaire sur"
-" la ligne de relevé de compte."
+"partenaire seront utilisés pour renseigner automatiquement le partenaire sur "
+"les lignes de relevé de compte."
 
 #. module: account_statement_completion_label_simple
 #: model:ir.model.fields,help:account_statement_completion_label_simple.field_account_journal__invoice_number_autocompletion
@@ -200,7 +201,7 @@ msgstr ""
 #. module: account_statement_completion_label_simple
 #: model:ir.model,name:account_statement_completion_label_simple.model_account_statement_import
 msgid "Import Bank Statement Files"
-msgstr "Import des relevés bancaires"
+msgstr "Import des fichiers de relevé de compte"
 
 #. module: account_statement_completion_label_simple
 #: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_journal__invoice_number_autocompletion
@@ -210,7 +211,7 @@ msgstr "Complétion via les numéros de facture"
 #. module: account_statement_completion_label_simple
 #: model:ir.model,name:account_statement_completion_label_simple.model_account_journal
 msgid "Journal"
-msgstr ""
+msgstr "Journal"
 
 #. module: account_statement_completion_label_simple
 #: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_journal__statement_label_autocompletion
@@ -233,13 +234,13 @@ msgstr "Dernière modification le"
 #: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label__write_uid
 #: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label_create__write_uid
 msgid "Last Updated by"
-msgstr "Dernière mise-à-jour par"
+msgstr "Dernière mise à jour par"
 
 #. module: account_statement_completion_label_simple
 #: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label__write_date
 #: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label_create__write_date
 msgid "Last Updated on"
-msgstr "Dernière mise-à-jour le"
+msgstr "Dernière mise à jour le"
 
 #. module: account_statement_completion_label_simple
 #: model_terms:ir.ui.view,arch_db:account_statement_completion_label_simple.view_bank_statement_form
@@ -323,9 +324,9 @@ msgid ""
 "have a name smaller than the number of caracters configured here will be "
 "excluded from that feature."
 msgstr ""
-"Quand la complétion via les noms de partenaires est activée sur le journal "
+"Quand la complétion via les noms des partenaires est activée sur le journal "
 "de banque, les partenaires qui ont un nom plus petit que le nombre de "
-"caractères configurés ici seront exclus de cette fonctionnalité."
+"caractères configuré ici seront exclus de cette fonctionnalité."
 
 #. module: account_statement_completion_label_simple
 #: model:ir.model.fields,help:account_statement_completion_label_simple.field_account_statement_label__counterpart_account_id
@@ -333,5 +334,5 @@ msgid ""
 "When you import the bank statement, it will automatically process the "
 "matched statement line with that account as counterpart."
 msgstr ""
-"Quand vous importez un relevé de compte, Odoo va automatiquement traiter les"
-" lignes de relevé concernées avec ce compte comme contre-partie."
+"Quand vous importez un relevé de compte, Odoo va automatiquement traiter les "
+"lignes de relevé concernées avec ce compte comme contre-partie."
