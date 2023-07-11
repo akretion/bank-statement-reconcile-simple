@@ -24,19 +24,7 @@ class AccountBankStatement(models.Model):
                 line_pay_ref = line.payment_ref.upper()
                 for stlabel in dataset:
                     if self.match(line_pay_ref, stlabel[0]):
-                        if stlabel[1] and not line.partner_id:
-                            lvals = {'partner_id': stlabel[1]}
-                            line.write(lvals)
-                            updated_lines[line.id] = True
-                        if stlabel[2]:
-                            line.move_id.line_ids.with_context(
-                                force_delete=True).unlink()
-                            mvals = {'line_ids': [
-                                (0, 0, x) for x
-                                in line._prepare_move_line_default_vals(
-                                    counterpart_account_id=stlabel[2])]}
-                            line.move_id.write(mvals)
-                            updated_lines[line.id] = True
+                        line._update_line_from_label(stlabel, updated_lines)
                         if updated_lines.get(line.id):
                             break
             if updated_lines:
@@ -49,3 +37,27 @@ class AccountBankStatement(models.Model):
             return True
         else:
             return False
+
+
+class AccountBankStatementLine(models.Model):
+    _inherit = 'account.bank.statement.line'
+
+    def _update_line_from_label(self, label, updated_lines):
+        self.ensure_one()
+        if label[1] and not self.partner_id:
+            lvals = {'partner_id': label[1]}
+            self.write(lvals)
+            updated_lines[self.id] = True
+        if label[2]:
+            self._update_counterpart_account(label[2])
+            updated_lines[self.id] = True
+
+    def _update_counterpart_account(self, account_id):
+        self.ensure_one()
+        self.move_id.line_ids.with_context(
+        force_delete=True).unlink()
+        mvals = {'line_ids': [
+            (0, 0, x) for x
+            in self._prepare_move_line_default_vals(
+                counterpart_account_id=account_id)]}
+        self.move_id.write(mvals)

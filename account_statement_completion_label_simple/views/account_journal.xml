@@ -17,7 +17,6 @@
                 <field name="partner_autocompletion"/>
                 <field name="invoice_number_autocompletion"/>
                 <field name="statement_label_autocompletion"/>
-                <field name="automate_entry" attrs="{'invisible': [('statement_label_autocompletion', '=', False)]}"/>
             </group>
         </xpath>
     </field>
