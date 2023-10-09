@@ -32,12 +32,20 @@ class AccountStatementLabelCreate(models.TransientModel):
         related='statement_line_id.payment_ref', readonly=True,
         string='Statement Line Label')
     new_label = fields.Char(string="New Label", required=True)
+    label_type = fields.Selection([
+        ('partner', 'Autoset Partner'),
+        ('counterpart', 'Autoset Counterpart'),
+        ('partner_counterpart', 'Autoset Partner and Counterpart'),
+        ], string="Label Type", default='partner', required=True)
     partner_id = fields.Many2one(
         'res.partner', string='Partner',
         domain="[('parent_id', '=', False), ('company_id', 'in', (False, company_id))]")
     counterpart_account_id = fields.Many2one(
         'account.account', 'Counterpart Account',
         domain="[('company_id', '=', company_id), ('deprecated', '=', False)]")
+    counterpart_analytic_account_id = fields.Many2one(
+        'account.analytic.account', 'Counterpart Analytic Account',
+        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]")
 
     def run(self):
         self.ensure_one()
@@ -46,5 +54,6 @@ class AccountStatementLabelCreate(models.TransientModel):
             'company_id': self.statement_line_id.company_id.id,
             'partner_id': self.partner_id.id or False,
             'counterpart_account_id': self.counterpart_account_id.id or False,
+            'counterpart_analytic_account_id': self.counterpart_analytic_account_id.id or False,
         })
         self.statement_line_id.statement_id.update_statement_lines()

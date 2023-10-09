@@ -28,7 +28,5 @@ class AccountJournal(models.Model):
                 ('state', '!=', 'cancel')],
                 ['commercial_partner_id', 'name'])
             for order in orders:
-                dataset.append((
-                    order['name'].upper(),
-                    order['commercial_partner_id'][0],
-                    False))
+                dataset[order['name'].upper()] = {
+                    'partner_id': order['commercial_partner_id'][0]}

@@ -23,6 +23,10 @@ class AccountStatementLabel(models.Model):
         help="When you import the bank statement, "
         "it will automatically process the matched statement line "
         "with that account as counterpart.")
+    counterpart_analytic_account_id = fields.Many2one(
+        "account.analytic.account", string="Counterpart Analytic Account",
+        check_company=True,
+        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]")
     label = fields.Char('Bank Statement Label', required=True)
     # WARNING: company_id is NOT required=True
     # it is only required when counterpart_account_id is set
@@ -36,14 +40,19 @@ class AccountStatementLabel(models.Model):
 
     @api.constrains('partner_id', 'counterpart_account_id', 'company_id')
     def _label_check(self):
-        for label in self:
-            if not label.partner_id and not label.counterpart_account_id:
+        for rec in self:
+            if not rec.partner_id and not rec.counterpart_account_id:
                 raise ValidationError(_(
                     "The bank statement label '%s' should have either "
-                    "a partner or a counterpart account.") % label.label)
-            if label.counterpart_account_id and not label.company_id:
+                    "a partner or a counterpart account.") % rec.label)
+            if rec.counterpart_account_id and not rec.company_id:
                 raise ValidationError(_(
                     "The bank statement label '%s' has a Counterpart "
                     "Account, so it must be linked to a Company "
                     "(the company of the Counterpart Account).")
-                    % label.label)
+                    % rec.label)
+            if rec.counterpart_analytic_account_id and not rec.counterpart_account_id:
+                raise ValidationError(_(
+                    "The bank statement label '%s' has a Counterpart Analytic Account, "
+                    "so it must also have a Counterpart Account.")
+                    % rec.label)

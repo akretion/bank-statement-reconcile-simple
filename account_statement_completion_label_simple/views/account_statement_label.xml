@@ -18,6 +18,7 @@
                 <field name="label"/>
                 <field name="partner_id"/>
                 <field name="counterpart_account_id"/>
+                <field name="counterpart_analytic_account_id" groups="analytic.group_analytic_accounting"/>
                 <field name="company_id" groups="base.group_multi_company" attrs="{'required': [('counterpart_account_id', '!=', False)]}"/>
             </group>
         </form>
@@ -31,8 +32,9 @@
         <tree editable="bottom">
             <field name="label"/>
             <field name="partner_id"/>
-            <field name="counterpart_account_id"/>
-            <field name="company_id" groups="base.group_multi_company" attrs="{'required': [('counterpart_account_id', '!=', False)]}"/>
+            <field name="counterpart_account_id" optional="show"/>
+            <field name="counterpart_analytic_account_id" groups="analytic.group_analytic_accounting" optional="show"/>
+            <field name="company_id" groups="base.group_multi_company" attrs="{'required': [('counterpart_account_id', '!=', False)]}" optional="show"/>
         </tree>
     </field>
 </record>
@@ -45,11 +47,14 @@
             <field name="label"/>
             <field name="partner_id"/>
             <field name="counterpart_account_id"/>
+            <field name="counterpart_analytic_account_id" groups="analytic.group_analytic_accounting"/>
             <group string="Group By" name="groupby">
                 <filter name="partner_groupby" string="Partner"
                     context="{'group_by': 'partner_id'}"/>
                 <filter name="counterpart_account_groupby" string="Counterpart Account"
                     context="{'group_by': 'counterpart_account_id'}"/>
+                <filter name="counterpart_analytic_account_groupby" string="Counterpart Analytic Account"
+                    context="{'group_by': 'counterpart_analytic_account_id'}" groups="analytic.group_analytic_accounting"/>
             </group>
         </search>
     </field>
