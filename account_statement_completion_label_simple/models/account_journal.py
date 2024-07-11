@@ -72,6 +72,7 @@ class AccountJournal(models.Model):
                     ('company_id', '=', False),
                     ('company_id', '=', self.company_id.id),
                     ('parent_id', '=', False),
+                    ('name', '!=', False),
                 ],
                 ['name'])
             for partner in partners:
