@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-06 22:20+0000\n"
-"PO-Revision-Date: 2023-06-08 14:11+0000\n"
+"POT-Creation-Date: 2024-09-03 12:33+0000\n"
+"PO-Revision-Date: 2024-09-03 12:35+0000\n"
 "Last-Translator: Alexis de Lattre <alexis.delattre@akretion.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -17,25 +17,9 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_statement_completion_label_simple
-#: code:addons/account_statement_completion_label_simple/models/account_bank_statement.py:0
-#, python-format
-msgid "%d bank statement line(s) updated."
-msgstr "%d ligne(s) de relevé de compte mise(s)-à-jour."
-
-#. module: account_statement_completion_label_simple
 #: model:ir.model,name:account_statement_completion_label_simple.model_account_statement_label_create
 msgid "Account Statement Label Create Wizard"
 msgstr "Assistant de création de libellés de relevé de compte"
-
-#. module: account_statement_completion_label_simple
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_journal__automate_entry
-msgid "Automate Counterpart"
-msgstr "Automatiser la contre-partie"
-
-#. module: account_statement_completion_label_simple
-#: model:ir.model,name:account_statement_completion_label_simple.model_account_bank_statement
-msgid "Bank Statement"
-msgstr "Relevé de compte"
 
 #. module: account_statement_completion_label_simple
 #: model:ir.model,name:account_statement_completion_label_simple.model_account_statement_label
@@ -119,23 +103,8 @@ msgid "Created on"
 msgstr "Créé le"
 
 #. module: account_statement_completion_label_simple
-#: model_terms:ir.ui.view,arch_db:account_statement_completion_label_simple.view_bank_statement_form
-msgid ""
-"Detect partners and process bank statement lines using the methods "
-"configured on the bank journal."
-msgstr ""
-"Détecte les partenaires et traite les lignes de relevé de compte en "
-"utilisant les méthodes activées dans la configuration du journal de banque."
-
-#. module: account_statement_completion_label_simple
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_bank_statement__display_name
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_journal__display_name
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_import__display_name
 #: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label__display_name
 #: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label_create__display_name
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_company__display_name
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_config_settings__display_name
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_partner__display_name
 msgid "Display Name"
 msgstr "Nom affiché"
 
@@ -145,27 +114,10 @@ msgid "Group By"
 msgstr "Grouper par"
 
 #. module: account_statement_completion_label_simple
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_bank_statement__id
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_journal__id
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_import__id
 #: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label__id
 #: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label_create__id
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_company__id
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_config_settings__id
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_partner__id
 msgid "ID"
 msgstr "ID"
-
-#. module: account_statement_completion_label_simple
-#: model:ir.model.fields,help:account_statement_completion_label_simple.field_account_journal__automate_entry
-msgid ""
-"If enabled, pre-recorded bank statement labels configured with a counter-"
-"part account will be used to automatically set the counter-part journal item "
-"and validate the bank statement line."
-msgstr ""
-"Si activé, les libellés de relevé de compte pré-enregistrés avec un compte "
-"de contre-partie seront utilisés pour créer automatiquement l'écriture "
-"comptable de contre-partie et valider la ligne de relevé de compte."
 
 #. module: account_statement_completion_label_simple
 #: model:ir.model.fields,help:account_statement_completion_label_simple.field_account_journal__statement_label_autocompletion
@@ -199,11 +151,6 @@ msgstr ""
 "(indépendemment des accents et de la casse)."
 
 #. module: account_statement_completion_label_simple
-#: model:ir.model,name:account_statement_completion_label_simple.model_account_statement_import
-msgid "Import Bank Statement Files"
-msgstr "Import des fichiers de relevé de compte"
-
-#. module: account_statement_completion_label_simple
 #: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_journal__invoice_number_autocompletion
 msgid "Invoice Number Completion"
 msgstr "Complétion via les numéros de facture"
@@ -219,14 +166,8 @@ msgid "Label Completion"
 msgstr "Complétion via les libellés"
 
 #. module: account_statement_completion_label_simple
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_bank_statement____last_update
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_journal____last_update
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_import____last_update
 #: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label____last_update
 #: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_account_statement_label_create____last_update
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_company____last_update
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_config_settings____last_update
-#: model:ir.model.fields,field_description:account_statement_completion_label_simple.field_res_partner____last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
@@ -243,7 +184,7 @@ msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: account_statement_completion_label_simple
-#: model_terms:ir.ui.view,arch_db:account_statement_completion_label_simple.view_bank_statement_form
+#: model_terms:ir.ui.view,arch_db:account_statement_completion_label_simple.bank_statement_line_form_reconcile_view
 msgid "Learn Label"
 msgstr "Retenir le libellé"
 
@@ -288,6 +229,7 @@ msgstr ""
 "La taille minimum du nom des partenaires doit être supérieure ou égale à 1."
 
 #. module: account_statement_completion_label_simple
+#. odoo-python
 #: code:addons/account_statement_completion_label_simple/models/account_statement_label.py:0
 #, python-format
 msgid ""
@@ -298,6 +240,7 @@ msgstr ""
 "lié à une société (la société du compte de contre-partie)."
 
 #. module: account_statement_completion_label_simple
+#. odoo-python
 #: code:addons/account_statement_completion_label_simple/models/account_statement_label.py:0
 #, python-format
 msgid ""
@@ -313,9 +256,15 @@ msgid "This label already exists!"
 msgstr "Ce libellé existe déjà !"
 
 #. module: account_statement_completion_label_simple
-#: model_terms:ir.ui.view,arch_db:account_statement_completion_label_simple.view_bank_statement_form
-msgid "Update Statement Lines"
-msgstr "Mettre à jour les lignes"
+#. odoo-python
+#: code:addons/account_statement_completion_label_simple/models/account_journal.py:0
+#, python-format
+msgid ""
+"Updated to partner <a href=# data-oe-model=res.partner data-oe-id=%d>%s</a> "
+"via a new bank statement label."
+msgstr ""
+"Mise à jour du partenaire <a href=# data-oe-model=res.partner data-oe-"
+"id=%d>%s</a> via un nouveau libellé de relevé de compte."
 
 #. module: account_statement_completion_label_simple
 #: model_terms:ir.ui.view,arch_db:account_statement_completion_label_simple.res_config_settings_view_form
