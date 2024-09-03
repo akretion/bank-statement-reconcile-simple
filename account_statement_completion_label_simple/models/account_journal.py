@@ -28,13 +28,6 @@ class AccountJournal(models.Model):
         "bank statement line if it contains a customer invoice/refund number "
         "of that partner.")
 
-#    automate_entry = fields.Boolean(
-#        string="Automate Counterpart",
-#        default=True,
-#        help="If enabled, pre-recorded bank statement labels "
-#        "configured with a counter-part account will be used to automatically set "
-#        "the counter-part journal item and validate the bank statement line.")
-
     def get_all_labels(self):
         self.ensure_one()
         dataset = []
@@ -111,7 +104,8 @@ class AccountJournal(models.Model):
         return st_line_vals
 
     def _statement_line_import_update_hook(self, st_line_vals, speeddict):
-        '''Match the partner from the account.statement.label'''
+        '''Inherit method from the OCA module account_statement_import_base
+        Set the partner and/or counter-part account'''
         super()._statement_line_import_update_hook(st_line_vals, speeddict)
         if (
                 speeddict['labels'] and
