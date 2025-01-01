@@ -1,8 +1,10 @@
-# Copyright 2016-2019 Akretion France (http://www.akretion.com/)
+# Copyright 2016-2024 Akretion France (https://www.akretion.com/)
+# @author: Alexis de Lattre <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
 from odoo import api, fields, models, _
 from unidecode import unidecode
+from markupsafe import Markup
 
 
 class AccountJournal(models.Model):
@@ -138,9 +140,13 @@ class AccountJournal(models.Model):
                             line.write(lvals)
                             updated_lines[line.id] = True
                         if updated_lines.get(line.id):
+                            partner_link = Markup(
+                                f"<a href=# data-oe-model=res.partner "
+                                f"data-oe-id={line.partner_id.id}>"
+                                f"{line.partner_id.display_name}</a>"
+                                )
                             line.move_id.message_post(body=_(
-                                "Updated to partner "
-                                "<a href=# data-oe-model=res.partner data-oe-id=%d>%s</a> via a new bank statement label.") % (line.partner_id.id, line.partner_id.display_name))
+                                "Updated to partner %s via a new bank statement label.") % partner_link)
                             break
                         # Account is set at line creation. In case of creation of
                         # bank statement label after the statement line creation

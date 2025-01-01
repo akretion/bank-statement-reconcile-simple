@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Copyright 2015-2022 Akretion France (http://www.akretion.com)
+  Copyright 2015-2024 Akretion France (https://www.akretion.com)
   @author Alexis de Lattre <alexis.delattre@akretion.com>
   License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
@@ -13,7 +13,7 @@
     <field name="inherit_id" ref="account.view_account_journal_form"/>
     <field name="arch" type="xml">
         <xpath expr="//group[@name='bank_account_number']" position="after">
-            <group name="bank_autocompletion" string="Bank Statement Line Auto-Completion" attrs="{'invisible': [('type', '!=', 'bank')]}">
+            <group name="bank_autocompletion" string="Bank Statement Line Auto-Completion" invisible="type != 'bank'">
                 <field name="partner_autocompletion"/>
                 <field name="invoice_number_autocompletion"/>
                 <field name="statement_label_autocompletion"/>

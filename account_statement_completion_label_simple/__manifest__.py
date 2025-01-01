@@ -4,7 +4,7 @@
 
 {
     'name': 'Bank Statement Completion from Label (simple)',
-    'version': '16.0.1.0.0',
+    'version': '18.0.1.0.0',
     'category': 'Accounting',
     'license': 'AGPL-3',
     'description': """
@@ -19,7 +19,7 @@ This module has been written by Alexis de Lattre from Akretion <alexis.delattre@
     'depends': [
         'account_statement_import_base',
         'account_usability',
-        "account_reconcile_oca",
+#        "account_reconcile_oca",
         ],
     'external_dependencies': {'python': ['unidecode']},
     'data': [
@@ -30,7 +30,7 @@ This module has been written by Alexis de Lattre from Akretion <alexis.delattre@
         'views/account_statement_label.xml',
         'views/res_partner.xml',
         'views/account_journal.xml',
-        "views/account_bank_statement_line.xml",
+#        "views/account_bank_statement_line.xml",
     ],
     'installable': True,
 }

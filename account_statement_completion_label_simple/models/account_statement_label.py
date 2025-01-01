@@ -1,4 +1,4 @@
-# Copyright 2013-2022 Akretion France (http://www.akretion.com)
+# Copyright 2013-2024 Akretion France (https://www.akretion.com)
 # @author Benoît GUILLOT <benoit.guillot@akretion.com>
 # @author Alexis de LATTRE <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -19,7 +19,7 @@ class AccountStatementLabel(models.Model):
         domain=[('parent_id', '=', False)], check_company=True)
     counterpart_account_id = fields.Many2one(
         'account.account', string='Counterpart Account', check_company=True,
-        domain="[('company_id', '=', company_id), ('deprecated', '=', False)]",
+        domain="[('company_ids', 'in', company_id), ('deprecated', '=', False)]",
         help="When you import the bank statement, "
         "it will automatically process the matched statement line "
         "with that account as counterpart.")

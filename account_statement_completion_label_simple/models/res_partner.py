@@ -1,4 +1,4 @@
-# Copyright 2013-2020 Akretion France (http://www.akretion.com)
+# Copyright 2013-2024 Akretion France (https://www.akretion.com)
 # @author Benoît GUILLOT <benoit.guillot@akretion.com>
 # @author Alexis de LATTRE <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -17,10 +17,8 @@ class ResPartner(models.Model):
         string='Number of Bank Statement Labels')
 
     def _compute_bank_statement_label_count(self):
-        label_data = self.env['account.statement.label'].read_group(
-            [('partner_id', 'in', self.ids)], ['partner_id'], ['partner_id'])
-        mapped_data = dict([
-            (label['partner_id'][0], label['partner_id_count'])
-            for label in label_data])
+        label_data = self.env['account.statement.label']._read_group(
+            [('partner_id', 'in', self.ids)], groupby=['partner_id'], aggregates=['__count'])
+        mapped_data = {partner.id: lb_count for (partner, lb_count) in label_data}
         for partner in self:
             partner.bank_statement_label_count = mapped_data.get(partner.id, 0)

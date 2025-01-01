@@ -1,4 +1,4 @@
-# Copyright 2018-2022 Akretion France (http://www.akretion.com/)
+# Copyright 2018-2024 Akretion France (https://www.akretion.com/)
 # @author: Alexis de Lattre <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -8,6 +8,7 @@ from odoo import api, fields, models
 class AccountStatementLabelCreate(models.TransientModel):
     _name = 'account.statement.label.create'
     _description = 'Account Statement Label Create Wizard'
+    _check_company_auto = True
 
     @api.model
     def default_get(self, fields_list):
@@ -27,17 +28,17 @@ class AccountStatementLabelCreate(models.TransientModel):
     statement_line_id = fields.Many2one(
         'account.bank.statement.line', string='Bank Statement Line',
         readonly=True)
-    company_id = fields.Many2one('res.company', readonly=True)
+    company_id = fields.Many2one('res.company', readonly=True, ondelete='cascade')
     current_label = fields.Char(
         related='statement_line_id.payment_ref', readonly=True,
         string='Statement Line Label')
     new_label = fields.Char(string="New Label", required=True)
     partner_id = fields.Many2one(
-        'res.partner', string='Partner',
+        'res.partner', string='Partner', check_company=True,
         domain="[('parent_id', '=', False), ('company_id', 'in', (False, company_id))]")
     counterpart_account_id = fields.Many2one(
-        'account.account', 'Counterpart Account',
-        domain="[('company_id', '=', company_id), ('deprecated', '=', False)]")
+        'account.account', string='Counterpart Account', check_company=True,
+        domain="[('company_ids', 'in', company_id), ('deprecated', '=', False)]")
 
     def run(self):
         self.ensure_one()
