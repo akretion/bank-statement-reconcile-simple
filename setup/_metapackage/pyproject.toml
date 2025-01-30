@@ -1,0 +1,12 @@
+[project]
+name = "odoo-addons-akretion-bank-statement-reconcile-simple"
+version = "18.0.20250130.0"
+dependencies = [
+    "odoo-addon-account_statement_completion_label_simple==18.0.*",
+    "odoo-addon-account_statement_completion_label_simple_sale==18.0.*",
+]
+classifiers=[
+    "Programming Language :: Python",
+    "Framework :: Odoo",
+    "Framework :: Odoo :: 18.0",
+]
