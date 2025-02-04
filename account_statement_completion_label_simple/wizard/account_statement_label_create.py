@@ -48,3 +48,11 @@ class AccountStatementLabelCreate(models.TransientModel):
             'counterpart_account_id': self.counterpart_account_id.id or False,
         })
         self.statement_line_id.journal_id.update_statement_lines()
+        # refresh screen of bank statement reconcile interface
+        # in order to get the filter on partner in the reconcile tab
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "account_reconcile_oca.action_bank_statement_line_reconcile")
+        action['res_id'] = self.statement_line_id.id
+        if 'domain' in action:
+            action.pop('domain')
+        return action
