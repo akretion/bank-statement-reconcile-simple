@@ -47,3 +47,17 @@ class AccountStatementLabel(models.Model):
                     "Account, so it must be linked to a Company "
                     "(the company of the Counterpart Account).")
                     % label.label)
+
+    @api.constrains("counterpart_account_id")
+    def _check_counterpart_allowed(self):
+        for label in self:
+            # Do not allow counterpart account_id if analytic is required for this
+            # account, because for now, analytic is not managed in this module...
+            if label.counterpart_account_id:
+                plans = self.env["account.analytic.plan"].get_relevant_plans(business_domain="general", company_id=label.company_id.id, account=label.counterpart_account_id.id)
+                if any(x["applicability"] == "mandatory" for x in plans):
+                    raise ValidationError(_(
+                        "You can't set a counterpart if an analytic is required for this"
+                        "counterpart account. To achieve it, you should create a "
+                        "reconciliation model instead."
+                    ))
